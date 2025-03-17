@@ -1,0 +1,18 @@
+// import React from 'react';
+import { DiReact } from 'react-icons/di';
+
+const Footer = () => {
+  return (
+    <div className="w-full px-5 py-5 xl:m-0 mt-5 flex justify-between gap-2 font-semibold xl:text-sm">
+      <span className="hidden xl:inline-flex text-sm">
+      FleeFlow
+      </span>
+      <div className="flex gap-1 items-center">
+        <span className="text-sm">© Black Silicon LLC</span>
+        
+      </div>
+    </div>
+  );
+};
+
+export default Footer;
