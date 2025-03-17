@@ -8,14 +8,12 @@ import {
 } from 'react-router-dom';
 import Home from './pages/Home';
 //import Users from './pages/Users';
-import Products from './pages/Products';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Menu from './components/menu/Menu';
 import Error from './pages/Error';
 import Profile from './pages/Profile';
 //import Orders from './pages/Orders';
-import Posts from './pages/Posts';
 import Notes from './pages/Notes';
 import Calendar from './pages/Calendar';
 import Charts from './pages/Charts';
@@ -25,6 +23,7 @@ import EditProfile from './pages/EditProfile';
 import User from './pages/User';
 import Product from './pages/Product';
 import Login from './pages/Login';
+import Tracker from './pages/Tracker';
 import Orders from './pages/Order/Orders';
 import Drivers from './pages/Driver/Drivers';
 import Dispatchs from './pages/Dispatch/Dispatchs';
@@ -133,6 +132,10 @@ function App() {
     {
       path: '/login',
       element: <Login />,
+    },
+    {
+      path: '/tracking',
+      element: <Tracker />,
     },
     {
       path: '/dashboard',
