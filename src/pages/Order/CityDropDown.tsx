@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 const citiesByState: { [key: string]: string[] } = {
   Lagos: ["Ikeja", "Surulere", "Lekki", "Yaba", "Victoria Island", "Badagry", "Ajah", "Epe", "Ikorodu", "Mushin", "Shomolu", "Amuwo-Odofin", "Lagos Island"],

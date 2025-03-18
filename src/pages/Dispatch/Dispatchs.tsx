@@ -1,5 +1,5 @@
 import React from "react";
-import { GridColDef, GridEventListener } from "@mui/x-data-grid";
+import { GridColDef } from "@mui/x-data-grid";
 import DataTable from "../../components/DataTable";
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
@@ -11,7 +11,7 @@ import AddDispatch from "./AddDispatch";
 
 const Dispatchs = () => {
   const [isOpen, setIsOpen] = React.useState(false);
-  const [editFlag, setEditFlag] = React.useState(false);
+  const [editFlag] = React.useState(false);
   const [isOpenDialog, setIsOpenDialog] = React.useState(false);
   const [dispatch, setDispatch] = React.useState("0");
   const [orderdate, setOrderdate] = React.useState("");
@@ -22,7 +22,7 @@ const Dispatchs = () => {
     queryFn: fetchDispatchs,
   });
 
-  const handleButtonClick = (row: any, action: string) => {
+  const handleButtonClick = (row: any, _action: string) => {
     setIsOpenDialog(false);
     setDispatch("" + row.id);
  
@@ -103,11 +103,6 @@ const Dispatchs = () => {
     }
   }, [isError, isLoading, isSuccess]);
 
-  const handleAdd = () => {
-    setIsOpen(true);
-    setEditFlag(false);
-    //console.log("Button handleAdd clicked! Count:");
-  };
   console.log("orderdate",orderdate);
   console.log("dispatchDate",dispatchDate);
   

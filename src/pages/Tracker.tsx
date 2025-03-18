@@ -4,12 +4,6 @@ import { VerticalTimeline, VerticalTimelineElement } from "react-vertical-timeli
 import "react-vertical-timeline-component/style.min.css";
 import { HiCheckCircle, HiTruck, HiShoppingBag, HiXCircle } from "react-icons/hi2";
 
-const statusIcons1 = {
-  OrderPlaced: <HiShoppingBag color="blue" size={24} />, 
-  Dispatched: <HiTruck color="orange" size={24} />, 
-  Delivered: <HiCheckCircle color="green" size={24} />, 
-  Failed: <HiXCircle color="red" size={24} />,
-};
 
 const statusIcons: Record<string, any> = {
   OrderPlaced: <HiShoppingBag color="blue" size={24} />, 

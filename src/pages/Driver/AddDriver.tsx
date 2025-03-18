@@ -1,8 +1,8 @@
-import React, { ChangeEvent, FormEvent } from "react";
+import React, { FormEvent } from "react";
 import toast from "react-hot-toast";
 import { HiOutlineXMark } from "react-icons/hi2";
 import { saveDriver } from "./DriverData";
-import { fetchDriver, Driver } from "./DriverData";
+import { fetchDriver } from "./DriverData";
 
 interface AddDataProps {
   id:string;
@@ -27,8 +27,7 @@ const AddDriver: React.FC<AddDataProps> = ({id, slug, isOpen, setIsOpen,editFlag
   const [nextKinPhone, setNextKinPhone] = React.useState("");
   const [nextKinAddress, setNextKinAddress] = React.useState("");
   const [formDriverIsEmpty, setFormDriverIsEmpty] = React.useState(true);
-  const [formData2, setFormData2] = React.useState<Driver | null>(null);
-  
+   
   const getDriverData = async () => {
     try {
       const driver = await fetchDriver(id);
@@ -64,11 +63,6 @@ const AddDriver: React.FC<AddDataProps> = ({id, slug, isOpen, setIsOpen,editFlag
 
   }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (formData2) {
-      setFormData2({ ...formData2, [e.target.name]: e.target.value });
-    }
-  };
   const formatDateISO = (): string => {
     return new Date().toISOString(); // Outputs: "2025-02-23T23:59:59.123Z"
 };

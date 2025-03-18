@@ -1,8 +1,8 @@
-import React, { ChangeEvent, FormEvent } from "react";
+import React, { FormEvent } from "react";
 import toast from "react-hot-toast";
 import { HiOutlineXMark } from "react-icons/hi2";
 import { saveDispatch } from "./DispatchData";
-import { fetchDriver,fetchDispatch, Dispatch } from "./DispatchData";
+import { fetchDriver } from "./DispatchData";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers";
@@ -31,26 +31,25 @@ const AddDispatch: React.FC<AddDataProps> = ({
   // add driver
   const [orderId, setOrderId] = React.useState("");
   const [driverId, setDriverId] = React.useState("");
-  const [statusId, setStatusId] = React.useState(0);
+  const [statusId] = React.useState(0);
   const [driverName, setDriverName] = React.useState("");
 
     const [pickupName, setPickupName] = React.useState("");
     const [pickupStreet, setPickupStreet] = React.useState("");
-    const [pickupPhone, setPickupPhone] = React.useState("");
-    const [pickupDate, setPickupDate] = React.useState<Dayjs | null>(dayjs());
+    const [, setPickupPhone] = React.useState("");
+    const [, setPickupDate] = React.useState<Dayjs | null>(dayjs());
     const [dropoffName, setDropoffName] = React.useState("");
     const [dropoffStreet, setDropoffStreet] = React.useState("");
-    const [dropoffPhone, setDropoffPhone] = React.useState("");
-    const [dropoffDate, setDropoffDate] = React.useState<Dayjs | null>(dayjs());
-    const [instruction, setInstruction] = React.useState("OK");
-    const [customerId, setCustomer] = React.useState("");
-    const [amount, setAmount] = React.useState("0");
-    const [carrierId, setCarrierId] = React.useState("1");
-    const [carrierRate, setCarrierRate] = React.useState("0");
-    const [discount, setDiscount] = React.useState("");
-    const [orderItem, setOrderItem] = React.useState("");
+    const [, setDropoffPhone] = React.useState("");
+    const [, setDropoffDate] = React.useState<Dayjs | null>(dayjs());
+    const [, setInstruction] = React.useState("OK");
+    const [, setCustomer] = React.useState("");
+    const [, setAmount] = React.useState("0");
+    const [, setCarrierId] = React.useState("1");
+    const [, setCarrierRate] = React.useState("0");
+    const [, setDiscount] = React.useState("");
+    const [, setOrderItem] = React.useState("");
     const [orderDate, setOrderDate] = React.useState("");
-    const [formOrderIsEmpty, setFormOrderIsEmpty] = React.useState(true);
     const [pickupCity, setPickupCity] = React.useState("");
     const [pickupState, setPickupState] = React.useState("");
     const [pickupCountry, setPickupCountry] = React.useState("");
@@ -109,9 +108,6 @@ const AddDispatch: React.FC<AddDataProps> = ({
     }
   }, []);
 
-  const formatDateISO = (): string => {
-    return new Date().toISOString(); // Outputs: "2025-02-23T23:59:59.123Z"
-  };
   const handleSenderNameSelect = (selectedOption: Option) => {
     //console.log("Selected option:", selectedOption.name);
     setDriverName(selectedOption.name);

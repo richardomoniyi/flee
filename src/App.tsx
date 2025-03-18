@@ -14,8 +14,6 @@ import Menu from './components/menu/Menu';
 import Error from './pages/Error';
 import Profile from './pages/Profile';
 //import Orders from './pages/Orders';
-import Notes from './pages/Notes';
-import Calendar from './pages/Calendar';
 import Charts from './pages/Charts';
 import Logs from './pages/Logs';
 import ToasterProvider from './components/ToasterProvider';
@@ -32,7 +30,6 @@ import Payments from './pages/Payment/Payments';
 import Customers from './pages/Customer/Customers';
 import Users from './pages/User/Users';
 //import { GlobalProvider } from "./components/GlobalContext";
-import {GlobalProvider} from "./contexts/GlobalContext";
 
 
 function App() {

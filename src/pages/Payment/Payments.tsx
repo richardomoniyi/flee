@@ -10,12 +10,10 @@ import {formatDate} from "../../commons/Utility";
 
 
 const Dispatchs = () => {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [editFlag, setEditFlag] = React.useState(false);
-  const [isOpenDialog, setIsOpenDialog] = React.useState(false);
-  const [dispatch, setDispatch] = React.useState("0");
-  const [orderdate, setOrderdate] = React.useState("");
-  const [dispatchDate, setDispatchDate] = React.useState("");
+  const [isOpenDialog] = React.useState(false);
+  const [dispatch] = React.useState("0");
+  const [orderdate] = React.useState("");
+  const [dispatchDate] = React.useState("");
 
   const { isLoading, isError, isSuccess, data } = useQuery({
     queryKey: ["dispatchkey"],
@@ -26,14 +24,6 @@ const Dispatchs = () => {
   const handleDialogConfirm = () => {
     delDispatch(dispatch);
   };
-  /*
-   id:number;
- String orderId;
-    Timestamp orderDate;
-    String businessName = "";
-    Timestamp paymentDate;
-    double amount;
-  */
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 20 },
     {
@@ -92,15 +82,10 @@ const Dispatchs = () => {
     }
   }, [isError, isLoading, isSuccess]);
 
-  const handleAdd = () => {
-    setIsOpen(true);
-    setEditFlag(false);
-    //console.log("Button handleAdd clicked! Count:");
-  };
   console.log("orderdate",orderdate);
   console.log("dispatchDate",dispatchDate);
   
-  function handleButtonClick(row: any, action: string): void {
+  function handleButtonClick(_row: any, _action: string): void {
     throw new Error("Function not implemented.");
   }
 

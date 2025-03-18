@@ -1,5 +1,5 @@
 import React from "react";
-import { GridColDef, GridEventListener } from "@mui/x-data-grid";
+import { GridColDef } from "@mui/x-data-grid";
 import DataTable from "../../components/DataTable";
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
@@ -18,9 +18,6 @@ const Users = () => {
     queryFn: fetchUsers,
   });
   // Define the row click event logic
-  const handleRowClick: GridEventListener<"rowClick"> = (params) => {
-    //alert(`Driver Selected: ${params.row.id} - ${params.row.ID}`);
-  };
   const handleButtonClick = (row: any, action: string) => {
     setIsOpenDialog(false);
     setUser("" + row.id);

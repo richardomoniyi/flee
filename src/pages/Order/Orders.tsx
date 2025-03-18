@@ -1,12 +1,11 @@
 import React from "react";
-import { GridColDef, GridEventListener, GridRowParams } from "@mui/x-data-grid";
+import { GridColDef } from "@mui/x-data-grid";
 import DataTable from "../../components/DataTable";
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { fetchOrders, delOrder } from "./OrderData";
-import XDialog from "../../components/XDialog";
+import { fetchOrders } from "./OrderData";
 import AddOrder from "./AddOrder";
-import { formatDate, convertToDate } from "../../commons/Utility";
+import { formatDate } from "../../commons/Utility";
 import AddDispatch from "../Dispatch/AddDispatch";
 import MakePayment from "../Payment/MakePayment";
 
@@ -41,9 +40,6 @@ const Orders = () => {
     setSelectedRows(selectionModel);
    
     
-  };
-  const handleDialogConfirm = () => {
-    delOrder(order);
   };
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 20 },
@@ -150,10 +146,6 @@ const Orders = () => {
   }
   };
 
-  const handleRowClick: GridEventListener<"rowClick"> = (params: GridRowParams) => {
-    //console.log("Row clicked:", params.row);
-    alert(`You clicked on: ${params.row.name}`);
-  };
 console.log("CanPay",canPay);
   return (
     <div className="w-full p-0 m-0">

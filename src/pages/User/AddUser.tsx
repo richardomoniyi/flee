@@ -2,7 +2,7 @@ import React, { ChangeEvent, FormEvent } from "react";
 import toast from "react-hot-toast";
 import { HiOutlineXMark } from "react-icons/hi2";
 import { saveUser } from "./UserData";
-import { fetchUser, User } from "./UserData";
+import { fetchUser } from "./UserData";
 
 interface AddDataProps {
   id: string;
@@ -30,7 +30,6 @@ const AddCustomer: React.FC<AddDataProps> = ({
   const [category, setCategory] = React.useState(0);
   const [verify, setVerify] = React.useState(false);
   const [formCustomerIsEmpty, setFormCustomerIsEmpty] = React.useState(true);
-  const [formData2, setFormData2] = React.useState<User | null>(null);
   const [message,setMessage] = React.useState("");
 
   const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -65,11 +64,6 @@ const AddCustomer: React.FC<AddDataProps> = ({
     }
   }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (formData2) {
-      setFormData2({ ...formData2, [e.target.name]: e.target.value });
-    }
-  };
   function formatDateToUTC(): string {
     const now = new Date();
     

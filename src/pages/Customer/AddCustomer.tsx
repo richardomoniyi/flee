@@ -1,8 +1,8 @@
-import React, { ChangeEvent, FormEvent } from "react";
+import React, { FormEvent } from "react";
 import toast from "react-hot-toast";
 import { HiOutlineXMark } from "react-icons/hi2";
 import { saveCustomer } from "./CustomerData";
-import { fetchCustomer, Customer } from "./CustomerData";
+import { fetchCustomer } from "./CustomerData";
 import {formatToNaira} from "../../commons/Utility";
 
 interface AddDataProps {
@@ -34,8 +34,7 @@ const AddCustomer: React.FC<AddDataProps> = ({
   const [discountId, setDiscountId] = React.useState("0");
   const [balance, setBalance] = React.useState(0);
   const [formCustomerIsEmpty, setFormCustomerIsEmpty] = React.useState(true);
-  const [formData2, setFormData2] = React.useState<Customer | null>(null);
-
+  
   
   const getCustomerData = async () => {
     try {
@@ -62,11 +61,6 @@ const AddCustomer: React.FC<AddDataProps> = ({
     }
   }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (formData2) {
-      setFormData2({ ...formData2, [e.target.name]: e.target.value });
-    }
-  };
   const formatDateISO = (): string => {
     return new Date().toISOString(); // Outputs: "2025-02-23T23:59:59.123Z"
   };

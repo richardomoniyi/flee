@@ -1,15 +1,12 @@
-import React, { ChangeEvent, FormEvent } from "react";
+import React, { FormEvent } from "react";
 import toast from "react-hot-toast";
 import { HiOutlineXMark } from "react-icons/hi2";
-import { fetchDriver, fetchDispatch, Dispatch } from "./PaymentData";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
-import AutoTextBox from "../../components/AutoTextBox";
-import { searchDriverUrl, fetchOrder, savePayment } from "./PaymentData";
-import { Option } from "../../components/AutoTextBox";
-import {formatCurrency, removeFormatting} from "../../commons/Utility";
+import { fetchOrder, savePayment } from "./PaymentData";
+import {formatCurrency} from "../../commons/Utility";
 
 interface AddDataProps {
   id: string;
@@ -29,10 +26,8 @@ const AddDispatch: React.FC<AddDataProps> = ({
   // global
   const [showModal, setShowModal] = React.useState(false);
   // add driver
-  const [orderId, setOrderId] = React.useState("");
-  const [driverId, setDriverId] = React.useState("");
-  const [statusId, setStatusId] = React.useState(0);
-  const [payAmount, setPayAmount] = React.useState(0);
+  const [orderId, setOrderId] = React.useState("");;
+  const [, setPayAmount] = React.useState(0);
   const [paid, setPaid] = React.useState("0");
   const [pickupName, setPickupName] = React.useState("");
   const [dropoffName, setDropoffName] = React.useState("");
