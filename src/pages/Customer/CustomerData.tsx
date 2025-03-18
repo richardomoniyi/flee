@@ -15,8 +15,9 @@ export interface Customer {
 const getAuthToken = (): string => {
   return localStorage.getItem("token") || "";
 };
-const apiUrl = "http://127.0.0.1:8080/Flee/app";//env.REACT_APP_API_URL;
+//const apiUrl = "http://127.0.0.1:8080/Flee/app";//env.REACT_APP_API_URL;
 //const environment = process.env.REACT_APP_ENVIRONMENT;
+const apiUrl = import.meta.env.VITE_API_URL;
 export const fetchCustomers = async (): Promise<Customer[]> => {
   const response = await fetch(`${apiUrl}/customer/`,
     {
