@@ -10,7 +10,7 @@ const SearchDropdown: React.FC<SearchDropdownProps> = ({ apiUrl, label, onSelect
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [options, setOptions] = useState<string[]>([]);
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [, setSelectedIndex] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
   // Debounce function to delay API calls

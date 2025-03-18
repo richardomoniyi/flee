@@ -2,20 +2,17 @@ import React from 'react';
 import {
   DataGrid,
   GridColDef,
-  GridEventListener,
   GridRenderCellParams,
   GridRowSelectionModel,
   //   GridToolbarQuickFilter,
   GridToolbar,
   //   GridValueGetterParams,
 } from '@mui/x-data-grid';
-import { useNavigate } from 'react-router-dom';
 import {
   HiOutlinePencilSquare,
   HiOutlineEye,
   HiOutlineTrash,
 } from 'react-icons/hi2';
-import toast from 'react-hot-toast';
 
 interface DataTableProps {
   columns: GridColDef[];
@@ -36,8 +33,8 @@ const DataTable: React.FC<DataTableProps> = ({
   onActionClick,
   onSelectionChange
 }) => {
-  const navigate = useNavigate();
- 
+  //const navigate = useNavigate();
+  console.log(slug)
 
   const actionColumn: GridColDef = {
     field: 'action',

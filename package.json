@@ -12,6 +12,11 @@
    "dependencies": {
       "@emotion/react": "^11.14.0",
       "@emotion/styled": "^11.14.0",
+      "@fullcalendar/core": "^6.1.15",
+      "@fullcalendar/daygrid": "^6.1.15",
+      "@fullcalendar/interaction": "^6.1.15",
+      "@fullcalendar/react": "^6.1.15",
+      "@fullcalendar/timegrid": "^6.1.15",
       "@mui/material": "^5.16.14",
       "@mui/x-data-grid": "^6.19.2",
       "@mui/x-date-pickers": "^7.27.1",

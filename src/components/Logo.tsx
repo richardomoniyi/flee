@@ -1,4 +1,3 @@
-import React from "react";
 import fleetFlowLogo from "../assets/fleetflow.svg";
 
 const Logo = () => {

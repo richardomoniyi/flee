@@ -1,10 +1,8 @@
 import React from "react";
 import ChangeThemes from "../components/ChangesThemes";
-import { DiReact } from "react-icons/di";
 import { useNavigate } from "react-router-dom";
 import Logo from "../components/Logo";
 import { useState } from "react";
-import { useGlobalContext } from "../contexts/GlobalContext";
 import { login, forgotFetch, changeFetch, Answer } from "./User/UserData";
 import OTPInput from "../components/OTPInput";
 
@@ -28,7 +26,7 @@ const Login = () => {
 
   // RegEx Patterns
   const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  const phonePattern = /^[0-9]{10}$/; // Validates a 10-digit phone number
+  //const phonePattern = /^[0-9]{10}$/; // Validates a 10-digit phone number
   const passwordPattern =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 

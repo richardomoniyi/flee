@@ -31,10 +31,6 @@ export interface Order {
   orderDate: string,
   paid:string
 }
-interface Answer{
-  status:number,
-  message:string
-}
 const getAuthToken = (): string => {
   return localStorage.getItem("token") || "";
 };
@@ -81,7 +77,7 @@ export const fetchOrder = async (id:string): Promise<Order> => {
 
 export const saveOrder = (order: any) => {
   //console.log(order);
-  const c = JSON.parse(order);
+  //const c = JSON.parse(order);
   const resp = postData(`${apiUrl}/orders/`,"POST", order)
     .then((data) => console.log("Success:", data))
     .catch((error) => console.error("Error:", error.message));

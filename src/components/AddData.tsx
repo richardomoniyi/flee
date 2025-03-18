@@ -28,17 +28,17 @@ const AddData: React.FC<AddDataProps> = ({
   const [formUserIsEmpty, setFormUserIsEmpty] = React.useState(true);
 
   // add driver
-  const [driverFirstName, setDriverFirstName] = React.useState("");
-  const [driverLastName, setDriverLastName] = React.useState("");
-  const [driverEmail, setDriverEmail] = React.useState("");
-  const [driverPhone, setDriverPhone] = React.useState("");
-  const [driverAddress, setDriverAddress] = React.useState("");
-  const [driverNextKinFullname, setDriverNextKinFullname] = React.useState("");
-  const [driverNextKinEmail, setDriverNextKinEmail] = React.useState("");
-  const [driverNextKinAddress, setDriverNextKinAddress] = React.useState("");
+  const [, setDriverFirstName] = React.useState("");
+  const [, setDriverLastName] = React.useState("");
+  const [, setDriverEmail] = React.useState("");
+  const [, setDriverPhone] = React.useState("");
+  const [] = React.useState("");
+  const [, setDriverNextKinFullname] = React.useState("");
+  const [, setDriverNextKinEmail] = React.useState("");
+  const [, setDriverNextKinAddress] = React.useState("");
 
-  const [isDriverVerified, setIsDriverVerified] = React.useState("");
-  const [formDriverIsEmpty, setFormDriverIsEmpty] = React.useState(true);
+  const [] = React.useState("");
+  const [formDriverIsEmpty] = React.useState(true);
 
   // add product
   const [title, setTitle] = React.useState("");

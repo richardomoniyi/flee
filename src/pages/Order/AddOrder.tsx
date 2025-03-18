@@ -2,7 +2,7 @@ import React, { FormEvent, useState } from "react";
 import toast from "react-hot-toast";
 import { HiOutlineXMark } from "react-icons/hi2";
 import { saveOrder } from "./OrderData";
-import { fetchOrder, Order } from "./OrderData";
+import { fetchOrder } from "./OrderData";
 import { searchCustomerUrl } from "./OrderData";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -12,7 +12,7 @@ import AutoTextBox from "../../components/AutoTextBox";
 import { Option } from "../../components/AutoTextBox";
 import CityDropDown from "./CityDropDown";
 import StateDropDown from "./StateDropDown";
-import {formatCurrency, removeFormatting} from "../../commons/Utility";
+//import {formatCurrency, removeFormatting} from "../../commons/Utility";
 
 interface AddDataProps {
   id: string;
@@ -49,14 +49,14 @@ const AddOrder: React.FC<AddDataProps> = ({
   const [orderItem, setOrderItem] = React.useState("");
   const [orderDate, setOrderDate] = React.useState<Dayjs | null>(dayjs());
   const [formOrderIsEmpty, setFormOrderIsEmpty] = React.useState(true);
-  const [formData2, setFormData2] = React.useState<Order | null>(null);
+  //const [formData2, setFormData2] = React.useState<Order | null>(null);
   const [pickupCity, setPickupCity] = useState("");
   const [pickupState, setPickupState] = useState("");
   const [pickupCountry, setPickupCountry] = useState("");
   const [dropoffCity, setDropoffCity] = useState("");
   const [dropoffState, setDropoffState] = useState("");
   const [dropoffCountry, setDropoffCountry] = useState("");
-  const [paid,setPaid] = useState("0");
+  const [paid] = useState("0");
 
   const getOrderData = async () => {
     try {
@@ -96,11 +96,6 @@ const AddOrder: React.FC<AddDataProps> = ({
     }
   }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (formData2) {
-      setFormData2({ ...formData2, [e.target.name]: e.target.value });
-    }
-  };
   const handlePickUpStateChange = (selectedState: string) => {
     //setFormData((prev) => ({ ...prev, state: selectedState, city: "" })); // Reset city on state change
     setPickupState(selectedState);

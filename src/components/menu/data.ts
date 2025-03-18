@@ -1,16 +1,8 @@
 // import toast from 'react-hot-toast';
 import {
-  HiOutlineHome,
-  HiOutlineUser,
   HiOutlineUsers,
-  HiOutlineCube,
   HiUserCircle,
   HiOutlineClipboardDocumentList,
-  HiOutlineDocumentChartBar,
-  HiOutlinePencilSquare,
-  HiOutlineCalendarDays,
-  HiOutlinePresentationChartBar,
-  HiOutlineDocumentText,
   HiTruck,
   HiOutlineShoppingCart,
   HiOutlineCurrencyDollar,
