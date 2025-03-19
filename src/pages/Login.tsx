@@ -111,9 +111,11 @@ const Login = () => {
 
       const res = (await login(passport)) as Answer;
       console.log("Passport::", res.message);
-
+     
       if (res.status === 0) {
-        localStorage.setItem("token", res.message);
+        const profile = res.message.split(",");
+        localStorage.setItem("token", profile[0]);//res.message);
+        localStorage.setItem("profileName", profile[1]);
         navigate("/dashboard/home");
       } else {
         //newErrors.email = res.message;

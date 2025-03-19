@@ -15,6 +15,7 @@ const Navbar = () => {
 
   const [isDrawerOpen, setDrawerOpen] = React.useState(false);
   const toggleDrawer = () => setDrawerOpen(!isDrawerOpen);
+  const [loginProfile,setLoginProfile] = React.useState("")
 
   const toggleFullScreen = () => {
     setIsFullScreen((prev) => !prev);
@@ -22,6 +23,9 @@ const Navbar = () => {
 
   const navigate = useNavigate();
 
+  React.useEffect(()=>{
+    setLoginProfile(getLoginProfile());
+  })
   React.useEffect(() => {
     if (isFullScreen) {
       document.exitFullscreen();
@@ -30,6 +34,9 @@ const Navbar = () => {
     }
   }, [element, isFullScreen]);
 
+  const getLoginProfile = (): string => {
+    return localStorage.getItem("profileName") || "";
+  };
   return (
     // navbar screen
     <div className="fixed z-[3] top-0 left-0 right-0 bg-base-100 w-full flex justify-between px-3 xl:px-4 py-3 xl:py-5 gap-4 xl:gap-0">
@@ -145,6 +152,9 @@ const Navbar = () => {
             tabIndex={0}
             className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-40"
           >
+            <li>
+              <b>{loginProfile && (loginProfile)}</b>
+            </li>
             <Link to={'/profile'}>
               <li>
                 <a className="justify-between">My Profile</a>
