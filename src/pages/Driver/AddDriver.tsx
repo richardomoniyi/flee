@@ -23,9 +23,9 @@ const AddDriver: React.FC<AddDataProps> = ({id, slug, isOpen, setIsOpen,editFlag
   const [email, setEmail] = React.useState("");
   const [phone, setPhone] = React.useState("");
   const [address, setAddress] = React.useState("");
-  const [nextKinFullname, setNextKinFullname] = React.useState("");
-  const [nextKinPhone, setNextKinPhone] = React.useState("");
-  const [nextKinAddress, setNextKinAddress] = React.useState("");
+  const [nextFullname, setNextFullname] = React.useState("");
+  const [nextPhone, setNextPhone] = React.useState("");
+  const [nextAddress, setNextAddress] = React.useState("");
   const [formDriverIsEmpty, setFormDriverIsEmpty] = React.useState(true);
    
   const getDriverData = async () => {
@@ -38,9 +38,9 @@ const AddDriver: React.FC<AddDataProps> = ({id, slug, isOpen, setIsOpen,editFlag
       setAddress(driver.address);
       setEmail(driver.email);
       setPhone(driver.phone);
-      setNextKinFullname(driver.nextFullname);
-      setNextKinAddress(driver.nextAddress);
-      setNextKinPhone(driver.nextPhone);
+      setNextFullname(driver.nextFullname);
+      setNextAddress(driver.nextAddress);
+      setNextPhone(driver.nextPhone);
     } catch (error) {
       console.log(error)
       //setError("Failed to load data");
@@ -56,9 +56,9 @@ const AddDriver: React.FC<AddDataProps> = ({id, slug, isOpen, setIsOpen,editFlag
       setAddress("");
       setEmail("");
       setPhone("");
-      setNextKinFullname("");
-      setNextKinAddress("");
-      setNextKinPhone("");
+      setNextFullname("");
+      setNextAddress("");
+      setNextPhone("");
     }
 
   }, []);
@@ -74,9 +74,9 @@ const AddDriver: React.FC<AddDataProps> = ({id, slug, isOpen, setIsOpen,editFlag
       email,
       phone,
       address,
-      nextKinFullname,
-      nextKinAddress,
-      nextKinPhone,
+      nextFullname,
+      nextAddress,
+      nextPhone,
       created:formatDateISO()
     };
     const driver = JSON.stringify(formData);
@@ -98,9 +98,9 @@ const AddDriver: React.FC<AddDataProps> = ({id, slug, isOpen, setIsOpen,editFlag
       email === "" ||
       phone === "" ||
       address === "" ||
-      nextKinFullname === "" ||
-      nextKinPhone === "" ||
-      nextKinAddress === ""
+      nextFullname === "" ||
+      nextPhone === "" ||
+      nextAddress === ""
     ) {
       setFormDriverIsEmpty(true);
     }
@@ -110,9 +110,9 @@ const AddDriver: React.FC<AddDataProps> = ({id, slug, isOpen, setIsOpen,editFlag
       email !== "" &&
       phone !== "" &&
       address !== "" &&
-      nextKinFullname !== "" &&
-      nextKinPhone !== "" &&
-      nextKinAddress !== ""
+      nextFullname !== "" &&
+      nextPhone !== "" &&
+      nextAddress !== ""
     ) {
       setFormDriverIsEmpty(false);
     }
@@ -122,9 +122,9 @@ const AddDriver: React.FC<AddDataProps> = ({id, slug, isOpen, setIsOpen,editFlag
     email,
     phone,
     address,
-    nextKinFullname,
-    nextKinPhone,
-    nextKinAddress,
+    nextFullname,
+    nextPhone,
+    nextAddress,
   ]);
 
 
@@ -205,16 +205,16 @@ const AddDriver: React.FC<AddDataProps> = ({id, slug, isOpen, setIsOpen,editFlag
                 className="input input-bordered w-full"
                 name="nextkinname"
                 id="nextkinname"
-                value={nextKinFullname}
-                onChange={(element) => setNextKinFullname(element.target.value)}
+                value={nextFullname}
+                onChange={(element) => setNextFullname(element.target.value)}
               />
               <textarea
                 placeholder="Address"
                 className="input input-bordered w-full"
                 name="nextkinaddress"
                 id="nextkinaddress"
-                value={nextKinAddress}
-                onChange={(element) => setNextKinAddress(element.target.value)}
+                value={nextAddress}
+                onChange={(element) => setNextAddress(element.target.value)}
               />
               <input
                 type="text"
@@ -222,8 +222,8 @@ const AddDriver: React.FC<AddDataProps> = ({id, slug, isOpen, setIsOpen,editFlag
                 className="input input-bordered w-full"
                 name="nextkinphone"
                 id="nextkinphone"
-                value={nextKinPhone}
-                onChange={(element) => setNextKinPhone(element.target.value)}
+                value={nextPhone}
+                onChange={(element) => setNextPhone(element.target.value)}
               />
             </div>
             <button
