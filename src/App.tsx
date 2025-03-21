@@ -29,7 +29,7 @@ import Dispatchs from './pages/Dispatch/Dispatchs';
 import Payments from './pages/Payment/Payments';
 import Customers from './pages/Customer/Customers';
 import Users from './pages/User/Users';
-import Chatbot from './pages/ChatBot';
+import Chatbot from './pages/Chatbot';
 //import { GlobalProvider } from "./components/GlobalContext";
 
 
