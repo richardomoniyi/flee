@@ -258,12 +258,12 @@ const AddOrder: React.FC<AddDataProps> = ({
   if (slug === "order") {
     //console.log("form status", formOrderIsEmpty);
     return (
-      <div className="w-screen h-screen fixed top-0 left-0 flex justify-center items-center bg-black/75 z-[99]">
+      <div className="w-screen h-screen fixed top-0 left-0 flex justify-center items-center bg-black/75 z-[99]" >
         <div
           className={`w-[80%] xl:w-[50%] rounded-lg p-7 bg-base-100 relative transition duration-300 flex flex-col items-stretch gap-5 ${
             showModal ? "translate-y-0" : "translate-y-full"
           }
-            ${showModal ? "opacity-100" : "opacity-0"}`}
+            ${showModal ? "opacity-100" : "opacity-0"}`} style={{ maxHeight: `80vh`, overflowY: `auto`} }
         >
           <div className="w-full flex justify-between pb-5 border-b border-base-content border-opacity-30">
             <button
