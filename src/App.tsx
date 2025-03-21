@@ -29,6 +29,7 @@ import Dispatchs from './pages/Dispatch/Dispatchs';
 import Payments from './pages/Payment/Payments';
 import Customers from './pages/Customer/Customers';
 import Users from './pages/User/Users';
+import Chatbot from './pages/ChatBot';
 //import { GlobalProvider } from "./components/GlobalContext";
 
 
@@ -36,6 +37,7 @@ function App() {
   const Layout = () => {
     return (
       //<GlobalProvider>
+      <>
       <div
         id="rootContainer"
         className="w-full p-0 m-0 overflow-visible min-h-screen flex flex-col justify-between"
@@ -56,6 +58,8 @@ function App() {
         </div>
         <Footer />
       </div>
+      <Chatbot />
+      </>
       //</GlobalProvider>
     );
   };
@@ -133,6 +137,10 @@ function App() {
     {
       path: '/tracking',
       element: <Tracker />,
+    },
+    {
+      path: '/chatbot',
+      element: <Chatbot />,
     },
     {
       path: '/dashboard',

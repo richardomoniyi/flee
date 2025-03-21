@@ -61,8 +61,6 @@ const Home = () => {
 
   //const { user } = useGlobalContext();
   return (
-    // screen
-    
     <div className="home w-full p-0 m-0">
       {/* grid */}
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 grid-flow-dense auto-rows-[minmax(200px,auto)] xl:auto-rows-[minmax(150px,auto)] gap-3 xl:gap-3 px-0">
