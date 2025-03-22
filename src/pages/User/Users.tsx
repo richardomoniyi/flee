@@ -14,7 +14,7 @@ const Users = () => {
   const [isOpenDialog, setIsOpenDialog] = React.useState(false);
   const [user, setUser] = React.useState("0");
   const { isLoading, isError, isSuccess, data } = useQuery({
-    queryKey: ["allusers"],
+    queryKey: ["allusers",[isOpen]],
     queryFn: fetchUsers,
   });
   // Define the row click event logic

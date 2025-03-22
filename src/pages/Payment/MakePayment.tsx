@@ -64,7 +64,7 @@ const AddDispatch: React.FC<AddDataProps> = ({
     if (editFlag) {
       getOrderData();
     }
-  }, []);
+  }, [isOpen]);
 
  
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {

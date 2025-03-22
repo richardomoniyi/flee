@@ -15,9 +15,10 @@ const Customers = () => {
   const [isOpenDialog, setIsOpenDialog] = React.useState(false);
   const [customer, setCustomer] = React.useState("0");
   const { isLoading, isError, isSuccess, data } = useQuery({
-    queryKey: ["allcustomers"],
+    queryKey: ["allcustomers",isOpen],
     queryFn: fetchCustomers,
   });
+ // isOpen
   //console.log("Data", data);
   //console.log("Edit Flag", editFlag);
   // Define the row click event logic

@@ -100,7 +100,7 @@ const Login = () => {
         setOtp(true);
         setSendOtp(result.message);
 
-      }
+      }else  setMessage("Password change failed, pls check your entries");
     } else if (!newErrors.email && !newErrors.password) {
       //navigate("/");
       const passport = {

@@ -17,7 +17,7 @@ const Orders = () => {
   const [canPay, setCanPay] = React.useState(false);
   const [selectedRows, setSelectedRows] = React.useState<any[]>([]);
   const { isLoading, isError, isSuccess, data } = useQuery({
-    queryKey: ["alldrivers"],
+    queryKey: ["alldrivers",isOpen],
     queryFn: fetchOrders,
   });
   console.log("Edit Flag", editFlag);

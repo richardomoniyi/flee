@@ -1,7 +1,8 @@
 export interface Dispatch {
   id: number;
-  orderId: string;
+  orderId: number;
   driverId: number;
+  statusId:number;
   dispatchDate: string;
 }
 export interface DispatchData{
@@ -17,6 +18,10 @@ interface Carrier {
   name: string;
   description: string;
   created: number; // Timestamp in milliseconds
+}
+export interface Answer{
+  status:number;
+  message:string;
 }
 export interface Order {
   pickupName: string,
@@ -133,12 +138,25 @@ export const fetchDispatch = async (id:string): Promise<Dispatch> => {
   const data: Dispatch = await response.json();
   return data;
 };
-export const saveDispatch = (driver: any) => {
-  //console.log(driver);
-  const resp = postData(`${apiUrl}/dispatch/`,"POST", driver)
+export const saveDispatch = (dispatch: any) => {
+  //console.log(order);
+  //const c = JSON.parse(order);
+  const resp = postData(`${apiUrl}/dispatch/`,"POST", dispatch)
     .then((data) => console.log("Success:", data))
     .catch((error) => console.error("Error:", error.message));
-   console.log(resp);
+   //console.log(resp);
+   return resp;
+};
+export const saveDispatch1 = async (dispatch: any): Promise<Answer> => {
+    console.log("dispatch Data 1:", dispatch);
+    // Ensure driver is a valid object
+    //const c = typeof dispatch === "string" ? JSON.parse(dispatch) : dispatch;
+    // Await the API response
+    //console.log("dispatch Data 2:", c);
+    const resp = await postData(`${apiUrl}/dispatch/`, "POST", dispatch);
+    console.log("Success:", resp);
+    return resp as Answer; // Ensure this matches your expected Answer type
+  
 };
 export const delDispatch = async (id: string): Promise<void> => {
   try {

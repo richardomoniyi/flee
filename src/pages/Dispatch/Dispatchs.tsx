@@ -3,7 +3,7 @@ import { GridColDef } from "@mui/x-data-grid";
 import DataTable from "../../components/DataTable";
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { fetchDispatchs, delDispatch } from "./DispatchData";
+import { fetchDispatchs, delDispatch, Answer } from "./DispatchData";
 import XDialog from "../../components/XDialog";
 import {formatDate} from "../../commons/Utility";
 import AddDispatch from "./AddDispatch";
@@ -18,7 +18,7 @@ const Dispatchs = () => {
   const [dispatchDate, setDispatchDate] = React.useState("");
 
   const { isLoading, isError, isSuccess, data } = useQuery({
-    queryKey: ["dispatchkey"],
+    queryKey: ["dispatchkey",isOpen],
     queryFn: fetchDispatchs,
   });
 

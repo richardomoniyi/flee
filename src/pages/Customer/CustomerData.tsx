@@ -12,6 +12,10 @@ export interface Customer {
   discountId: string;
   created: string;
 }
+ export interface Answer{
+    status:number;
+    message:string;
+  }
 const getAuthToken = (): string => {
   return localStorage.getItem("token") || "";
 };
@@ -51,13 +55,16 @@ export const fetchCustomer = async (id:string): Promise<Customer> => {
   const data: Customer = await response.json();
   return data;
 };
-export const saveCustomer = (customer: any) => {
-  console.log(customer);
-  const c = JSON.parse(customer);
-  const resp = postData(`${apiUrl}/customer/`,"POST", c)
-    .then((data) => console.log("Success:", data))
-    .catch((error) => console.error("Error:", error.message));
-   console.log(resp);
+
+export const saveCustomer = async (customer: any): Promise<Answer> => {
+    console.log("Customer Data:", customer);
+    // Ensure customer is a valid object
+    const c = typeof customer === "string" ? JSON.parse(customer) : customer;
+    // Await the API response
+    const resp = await postData(`${apiUrl}/customer/`, "POST", c);
+    console.log("Success:", resp);
+    return resp as Answer; // Ensure this matches your expected Answer type
+  
 };
 export const delCustomer = async (id: string): Promise<void> => {
   try {

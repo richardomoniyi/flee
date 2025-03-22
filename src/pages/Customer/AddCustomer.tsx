@@ -1,7 +1,7 @@
 import React, { FormEvent } from "react";
 import toast from "react-hot-toast";
 import { HiOutlineXMark } from "react-icons/hi2";
-import { saveCustomer } from "./CustomerData";
+import { Answer, saveCustomer } from "./CustomerData";
 import { fetchCustomer } from "./CustomerData";
 import {formatToNaira} from "../../commons/Utility";
 
@@ -64,7 +64,7 @@ const AddCustomer: React.FC<AddDataProps> = ({
   const formatDateISO = (): string => {
     return new Date().toISOString(); // Outputs: "2025-02-23T23:59:59.123Z"
   };
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = {
       firstname,
@@ -80,11 +80,12 @@ const AddCustomer: React.FC<AddDataProps> = ({
     };
     const customer = JSON.stringify(formData);
     //console.log(driver);
-    saveCustomer(customer);
-    toast("Customer Saved!", { icon: "😛" });
+    const result =  await saveCustomer(customer) as Answer;
+    toast(result.message, { icon: "😛" });
     setShowModal(false);
     setIsOpen(false);
   };
+ 
 
   React.useEffect(() => {
     setShowModal(isOpen);

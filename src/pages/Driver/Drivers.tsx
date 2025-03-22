@@ -14,7 +14,7 @@ const Drivers = () => {
   const [isOpenDialog, setIsOpenDialog] = React.useState(false);
   const [driver, setDriver] = React.useState("0");
   const { isLoading, isError, isSuccess, data } = useQuery({
-    queryKey: ["alldrivers"],
+    queryKey: ["alldrivers",[isOpen]],
     queryFn: fetchDrivers,
   });
   console.log("Edit Flag", editFlag);

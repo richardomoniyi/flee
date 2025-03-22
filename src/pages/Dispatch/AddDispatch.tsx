@@ -1,7 +1,7 @@
 import React, { FormEvent } from "react";
 import toast from "react-hot-toast";
 import { HiOutlineXMark } from "react-icons/hi2";
-import { saveDispatch } from "./DispatchData";
+import { Answer, saveDispatch } from "./DispatchData";
 import { fetchDriver } from "./DispatchData";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -29,7 +29,7 @@ const AddDispatch: React.FC<AddDataProps> = ({
   // global
   const [showModal, setShowModal] = React.useState(false);
   // add driver
-  const [orderId, setOrderId] = React.useState("");
+  const [orderId, setOrderId] = React.useState<number>(0);
   const [driverId, setDriverId] = React.useState("");
   const [statusId] = React.useState(0);
   const [driverName, setDriverName] = React.useState("");
@@ -87,7 +87,7 @@ const AddDispatch: React.FC<AddDataProps> = ({
            setDiscount("" + order.discount);
            setCarrierId(""+order.carrierId.id);
            setCarrierRate("" + order.carrierRate);
-           setOrderId(order.orderId);
+           setOrderId(parseInt(order.orderId));
            setOrderItem(order.orderItem);
            setOrderDate(order.orderDate);
 
@@ -114,18 +114,24 @@ const AddDispatch: React.FC<AddDataProps> = ({
     setDriverId(selectedOption.id);
     // You can handle the selected option further here, such as storing it in state, etc.
   };
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = {
-      orderId:id,
+      orderId:parseInt(id),
       dispatchDate,
       statusId,
       driverId,
     };
     const dipatch = JSON.stringify(formData);
     //console.log(driver);
-    saveDispatch(dipatch);
-    toast("Dispatch Completed!", { icon: "😛" });
+    const result = saveDispatch(dipatch);
+    console.log("Result 1:",result);
+    const jsonResult = JSON.parse(JSON.stringify(result));
+    console.log("Result 2:",jsonResult);
+    //toast("Order Saved!", { icon: "😛" });
+    toast("Order Saved! "+jsonResult.message);
+    //const result = await saveDispatch(dipatch) as Answer;
+    //toast(result.message, { icon: "😛" });
     setShowModal(false);
     setIsOpen(false);
   };
@@ -150,7 +156,7 @@ const AddDispatch: React.FC<AddDataProps> = ({
           className={`w-[80%] xl:w-[50%] rounded-lg p-7 bg-base-100 relative transition duration-300 flex flex-col items-stretch gap-5 ${
             showModal ? "translate-y-0" : "translate-y-full"
           }
-            ${showModal ? "opacity-100" : "opacity-0"}`}
+            ${showModal ? "opacity-100" : "opacity-0"}`} style={{ maxHeight: `80vh`, overflowY: `auto`}}
         >
           <div className="w-full flex justify-between pb-5 border-b border-base-content border-opacity-30">
             <button

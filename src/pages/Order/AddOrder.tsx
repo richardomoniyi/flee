@@ -122,7 +122,7 @@ const AddOrder: React.FC<AddDataProps> = ({
     return new Date().toISOString(); // Outputs: "2025-02-23T23:59:59.123Z"
   };
   //const selectUrl = "https://jsonplaceholder.typicode.com/users";
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = {
       pickupName,
@@ -151,11 +151,11 @@ const AddOrder: React.FC<AddDataProps> = ({
       paid
     };
     const order = JSON.stringify(formData);
-    console.log(order);
-    const result = saveOrder(order);
+    //console.log(order);
+    const result =  saveOrder(order);
     const jsonResult = JSON.parse(JSON.stringify(result));
-    //toast("Order Saved!", { icon: "😛" });
-    toast("Order Saved! "+jsonResult.message);
+    toast("Order Saved!", { icon: "😛" });
+    //toast("Order Saved! "+jsonResult.message);
     setShowModal(false);
     setIsOpen(false);
   };
