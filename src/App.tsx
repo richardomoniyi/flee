@@ -125,6 +125,9 @@ function App() {
       element: <Login />,
     },
   ]);*/
+  const getRole = (): string => {
+    return localStorage.getItem("role") || "0";
+  };
   const router = createBrowserRouter([
     {
       path: '/',
@@ -151,20 +154,12 @@ function App() {
           element: <Home />,
         },
         {
-          path: '/dashboard/profile',
-          element: <Profile />,
-        },
-        {
-          path: '/dashboard/profile/edit',
-          element: <EditProfile />,
-        },
-        {
           path: '/dashboard/users',
-          element: <Users />,
+          element: parseInt(getRole()) > 0 ? <Users />:null,
         },
         {
           path: '/dashboard/users/:id',
-          element: <User />,
+          element:  parseInt(getRole()) > 0 ? <User />:null,
         },
         {
           path: '/dashboard/customers',

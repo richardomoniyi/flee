@@ -48,7 +48,7 @@ export const fetchOrders = async (): Promise<Order[]> => {
         "Content-Type": "application/json", // Ensure JSON format
       },
     });
-    console.log(response);
+    console.log("STATUS:"+response.status);
   if (!response.ok) {
     throw new Error("Failed to fetch users");
   }

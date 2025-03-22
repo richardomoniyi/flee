@@ -14,7 +14,8 @@ import { MdTwoWheeler } from "react-icons/md";
 export const menu = [
   {
     catalog: 'main',
-    listItems: [
+    
+    listItemsAdmin: [
       {
         isLink: true,
         url: '/dashboard/orders',
@@ -71,6 +72,44 @@ export const menu = [
         label: 'log out',
       }
     ],
+    listItems: [
+      {
+        isLink: true,
+        url: '/dashboard/orders',
+        icon: HiOutlineShoppingCart,
+        label: 'orders',
+      },
+      {
+        isLink: true,
+        url: '/dashboard/drivers',
+        icon: MdTwoWheeler,
+        label: 'Drivers',
+      },
+      {
+        isLink: true,
+        url: '/dashboard/customers',
+        icon: HiUserCircle,
+        label: 'Customers',
+      },
+      {
+        isLink: true,
+        url: '/dashboard/dispatchs',
+        icon: HiTruck,
+        label: 'dispatchs',
+      },
+      {
+        isLink: true,
+        url: '/dashboard/payments',
+        icon: HiOutlineCurrencyDollar,
+        label: 'payments',
+      },
+      {
+        isLink: true,
+        url: '/login',
+        icon: HiOutlineArrowLeftOnRectangle,
+        label: 'log out',
+      }
+    ]
   }/*,
   {
     catalog: 'lists',

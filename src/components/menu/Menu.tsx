@@ -2,7 +2,12 @@
 import { menu } from './data';
 import MenuItem from './MenuItem';
 
+
+
 const Menu = () => {
+  const getRole = (): string => {
+    return localStorage.getItem("role") || "0";
+  };
   return (
     <div className="w-full">
       <div className="w-full flex flex-col gap-5">
@@ -10,7 +15,7 @@ const Menu = () => {
           <MenuItem
             key={index}
             catalog={item.catalog}
-            listItems={item.listItems}
+             listItems={parseInt(getRole()) > 0 ? item.listItemsAdmin:item.listItems}
           />
         ))}
       </div>
