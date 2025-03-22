@@ -17,7 +17,6 @@ import {
   fetchTotalUsers,
   fetchTotalVisit,
 } from '../api/ApiCollection';
-import Chatbot from './Chatbot';
 
 const Home = () => {
   const queryGetTotalUsers = useQuery({

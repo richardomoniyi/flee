@@ -154,8 +154,8 @@ const AddOrder: React.FC<AddDataProps> = ({
     //console.log(order);
     const result =  saveOrder(order);
     const jsonResult = JSON.parse(JSON.stringify(result));
-    toast("Order Saved!", { icon: "😛" });
-    //toast("Order Saved! "+jsonResult.message);
+    //toast("Order Saved!", { icon: "😛" });
+    toast("Order Saved! "+jsonResult.message);
     setShowModal(false);
     setIsOpen(false);
   };
