@@ -36,7 +36,7 @@ const AddDispatch: React.FC<AddDataProps> = ({
   const[customerId, setCustomerId] = React.useState("");
   const [paymentDate, setPaymentDate] = React.useState<Dayjs | null>(dayjs());
   const [formDriverIsEmpty, setFormDriverIsEmpty] = React.useState(true);
-  const [postedBy,setPostedBy] = React.useState(-1);
+  const [,setPostedBy] = React.useState(-1);
 
   const getOrderData = async () => {
     try {
