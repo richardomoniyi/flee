@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { fetchPayments, delDispatch } from "./PaymentData";
 import XDialog from "../../components/XDialog";
-import {formatDate} from "../../commons/Utility";
+import {formatDate,formatToNaira} from "../../commons/Utility";
 
 
 
@@ -16,7 +16,7 @@ const Dispatchs = () => {
   const [dispatchDate] = React.useState("");
 
   const { isLoading, isError, isSuccess, data } = useQuery({
-    queryKey: ["dispatchkey"],
+    queryKey: ["dispatchkey",[isOpenDialog]],
     queryFn: fetchPayments,
   });
 
@@ -60,9 +60,9 @@ const Dispatchs = () => {
       field: "amount",
       headerName: "Amount",
       minWidth: 50,
-      type: "string",
+      type: "number",
       flex: 1,
-      renderCell: (params) => params.value
+      renderCell: (params) => formatToNaira(params.value)
     },
   ];
 

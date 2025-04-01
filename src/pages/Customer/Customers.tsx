@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import AddCustomer from "./AddCustomer";
 import { fetchCustomers, delCustomer } from "./CustomerData";
 import XDialog from "../../components/XDialog";
-import {formatDate} from "../../commons/Utility";
+import {formatDate,formatToNaira} from "../../commons/Utility";
 
 
 const Customers = () => {
@@ -15,7 +15,7 @@ const Customers = () => {
   const [isOpenDialog, setIsOpenDialog] = React.useState(false);
   const [customer, setCustomer] = React.useState("0");
   const { isLoading, isError, isSuccess, data } = useQuery({
-    queryKey: ["allcustomers",isOpen],
+    queryKey: ["allcustomers",[isOpen]],
     queryFn: fetchCustomers,
   });
  // isOpen
@@ -71,7 +71,7 @@ const Customers = () => {
       type: "number",
       minWidth: 100,
       flex: 1,
-      renderCell: (params) => params.value === "" ? "0":params.value.toLocaleString(),
+      renderCell: (params) => formatToNaira(params.value),
     },
     {
       field: "email",

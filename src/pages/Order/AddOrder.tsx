@@ -12,6 +12,7 @@ import AutoTextBox from "../../components/AutoTextBox";
 import { Option } from "../../components/AutoTextBox";
 import CityDropDown from "./CityDropDown";
 import StateDropDown from "./StateDropDown";
+import { getUserProfile } from "../../commons/Utility";
 //import {formatCurrency, removeFormatting} from "../../commons/Utility";
 
 interface AddDataProps {
@@ -57,11 +58,12 @@ const AddOrder: React.FC<AddDataProps> = ({
   const [dropoffState, setDropoffState] = useState("");
   const [dropoffCountry, setDropoffCountry] = useState("");
   const [paid] = useState("0");
+  const [postedBy,setPostedBy] = useState("-1");
 
   const getOrderData = async () => {
     try {
       const order = await fetchOrder(id);
-      console.log("getOrderData", order);
+      //console.log("getOrderData", order);
       setPickupName(order.pickupName);
       setPickupStreet(order.pickupStreet);
       setPickupCity(order.pickupCity);
@@ -85,6 +87,7 @@ const AddOrder: React.FC<AddDataProps> = ({
       setOrderId(order.orderId);
       setOrderItem(order.orderItem);
       setOrderDate(dayjs(order.orderDate));
+      setPostedBy(getUserProfile()?.user || "-1");
     } catch (error) {
       console.log(error);
     }
@@ -109,6 +112,9 @@ const AddOrder: React.FC<AddDataProps> = ({
     //console.log("Selected option:", selectedOption.name);
     setPickupName(selectedOption.name);
     setCustomer(selectedOption.id);
+    setPickupStreet(selectedOption.address);
+    setPickupPhone(selectedOption.phone);
+    setPostedBy(getUserProfile()?.user || "-1");
     // You can handle the selected option further here, such as storing it in state, etc.
   };
   function handleDropOffStateChange(state: string): void {
@@ -148,7 +154,8 @@ const AddOrder: React.FC<AddDataProps> = ({
       orderId,
       orderItem,
       orderDate: formatDateISO(),
-      paid
+      paid,
+      postedBy
     };
     const order = JSON.stringify(formData);
     //console.log(order);
@@ -243,7 +250,7 @@ const AddOrder: React.FC<AddDataProps> = ({
     orderItem,
     orderDate,
   ]);
-  console.log("Order ID",orderId);
+  /*console.log("Order ID",orderId);
   console.log("PickupCity:",pickupCity);
   console.log("PickupStreet:",pickupStreet);
   console.log("PickupState:",pickupState);
@@ -252,7 +259,7 @@ const AddOrder: React.FC<AddDataProps> = ({
   console.log("DropOffStreet:",dropoffStreet);
   console.log("DropOffState:",dropoffState);
   console.log("DropOffCountry:",dropoffCountry);
-
+  */
   //console.log("Carrier", carrierId);
   //<SearchDropdown apiUrl={selectUrl} label="Search for a user" onSelect={handleSelection} />
   if (slug === "order") {

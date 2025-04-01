@@ -10,9 +10,8 @@ export interface Driver {
   nextPhone: string;
   created: string;
 }
-const getAuthToken = (): string => {
-  return localStorage.getItem("token") || "";
-};
+import { getUserProfile, killProfile } from "../../commons/Utility";
+
 //const apiUrl = "http://127.0.0.1:8080/Flee/app";//env.REACT_APP_API_URL;
 //const environment = process.env.REACT_APP_ENVIRONMENT;
 const apiUrl = import.meta.env.VITE_API_URL;
@@ -21,12 +20,18 @@ export const fetchDrivers = async (): Promise<Driver[]> => {
     {
       method: "GET",
       headers: {
-        "Authorization": `Bearer ${getAuthToken()}`, // Send Authorization header
+        "Authorization": `Bearer ${getUserProfile()?.token}`, // Send Authorization header
         "Content-Type": "application/json", // Ensure JSON format
       },
     });
   console.log(response);
   if (!response.ok) {
+    if (response.status === 401) {
+      // Handle unauthorized access (e.g., redirect to login)
+      console.error("Unauthorized access - please log in again.");
+      localStorage.removeItem("token");
+      window.location.href = "/login"; // Redirect to login page
+    }else
     throw new Error("Failed to fetch users");
   }
   return response.json();
@@ -38,12 +43,15 @@ export const fetchDriver = async (id:string): Promise<Driver> => {
     {
       method: "GET",
       headers: {
-        "Authorization": `Bearer ${getAuthToken()}`, // Send Authorization header
+        "Authorization": `Bearer ${getUserProfile()?.token}`, // Send Authorization header
         "Content-Type": "application/json", // Ensure JSON format
       },
     });
   console.log(response);
   if (!response.ok) {
+    if (response.status === 401) {
+     killProfile();
+    }else
     throw new Error("Failed to fetch driver");
   }
   const data: Driver = await response.json();
@@ -62,11 +70,14 @@ export const delDriver = async (id: string): Promise<void> => {
           method: "DELETE",
           headers: {
               "Content-Type": "application/json",
-              "Authorization": `Bearer ${getAuthToken()}`, // Send Authorization header
+              "Authorization": `Bearer ${getUserProfile()?.token}`, // Send Authorization header
           },
       });
 
       if (!response.ok) {
+        if (response.status === 401) {
+          killProfile();
+        }else
           throw new Error(`Error: ${response.status} - ${response.statusText}`);
       }
 
@@ -82,12 +93,15 @@ export const postData = async (url: string, method:string,data: any) => {
     method: method,
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${getAuthToken()}`, // Send Authorization header
+      "Authorization": `Bearer ${getUserProfile()?.token}`, // Send Authorization header
     },
     body: data,//JSON.stringify(data),
   });
   console.log('PostData::',response)
   if (!response.ok) {
+    if (response.status === 401) {
+      killProfile();
+    }else
     throw new Error("Failed to send data");
   }
 
@@ -104,7 +118,7 @@ export async function fetchData2<T>(
       method,
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${getAuthToken()}`, // Send Authorization header
+        "Authorization": `Bearer ${getUserProfile()?.token}`, // Send Authorization header
       },
     };
 

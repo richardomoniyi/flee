@@ -18,7 +18,7 @@ const Dispatchs = () => {
   const [dispatchDate, setDispatchDate] = React.useState("");
 
   const { isLoading, isError, isSuccess, data } = useQuery({
-    queryKey: ["dispatchkey",isOpen],
+    queryKey: ["dispatchkey",[isOpen]],
     queryFn: fetchDispatchs,
   });
 

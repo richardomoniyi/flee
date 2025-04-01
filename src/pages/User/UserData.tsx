@@ -37,6 +37,12 @@ export const fetchUsers = async (): Promise<User[]> => {
     });
   console.log(response);
   if (!response.ok) {
+    if (response.status === 401) {
+      // Handle unauthorized access (e.g., redirect to login)
+      console.error("Unauthorized access - please log in again.");
+      localStorage.removeItem("token");
+      window.location.href = "/login"; // Redirect to login page
+    }else
     throw new Error("Failed to fetch users");
   }
   return response.json();
@@ -71,6 +77,12 @@ export const fetchUser = async (id: string): Promise<User> => {
     });
   console.log(response);
   if (!response.ok) {
+    if (response.status === 401) {
+      // Handle unauthorized access (e.g., redirect to login)
+      console.error("Unauthorized access - please log in again.");
+      localStorage.removeItem("token");
+      window.location.href = "/login"; // Redirect to login page
+    }else
     throw new Error("Failed to fetch customer");
   }
   const data: User = await response.json();
@@ -93,6 +105,12 @@ export const delUser = async (id: string): Promise<void> => {
     });
 
     if (!response.ok) {
+      if (response.status === 401) {
+        // Handle unauthorized access (e.g., redirect to login)
+        console.error("Unauthorized access - please log in again.");
+        localStorage.removeItem("token");
+        window.location.href = "/login"; // Redirect to login page
+      }else
       throw new Error(`Error: ${response.status} - ${response.statusText}`);
     }
 
@@ -114,6 +132,12 @@ export const postData = async (url: string, method:string,data: any) => {
   });
   console.log('PostData::response:',response)
   if (!response.ok) {
+    if (response.status === 401) {
+      // Handle unauthorized access (e.g., redirect to login)
+      console.error("Unauthorized access - please log in again.");
+      localStorage.removeItem("token");
+      window.location.href = "/login"; // Redirect to login page
+    }else
     throw new Error("Failed to send data");
   }
   const text = await response.text();
@@ -147,6 +171,12 @@ export async function fetchDataResponse<T>(
     const response = await fetch(url, options);
     console.log("response::", response);
     if (!response.ok) {
+      if (response.status === 401) {
+        // Handle unauthorized access (e.g., redirect to login)
+        console.error("Unauthorized access - please log in again.");
+        localStorage.removeItem("token");
+        window.location.href = "/login"; // Redirect to login page
+      }else
       throw new Error(
         `HTTP error! Status: ${response.status} - ${response.statusText}`
       );

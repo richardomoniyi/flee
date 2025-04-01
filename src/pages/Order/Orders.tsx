@@ -1,4 +1,6 @@
 import React from "react";
+import { useQueryClient } from "@tanstack/react-query"; // Import useQueryClient
+
 import { GridColDef } from "@mui/x-data-grid";
 import DataTable from "../../components/DataTable";
 import { useQuery } from "@tanstack/react-query";
@@ -9,7 +11,9 @@ import { formatDate } from "../../commons/Utility";
 import AddDispatch from "../Dispatch/AddDispatch";
 import MakePayment from "../Payment/MakePayment";
 
+
 const Orders = () => {
+  const queryClient = useQueryClient(); 
   const [isOpen, setIsOpen] = React.useState(false);
   const [editFlag, setEditFlag] = React.useState(false);
   const [isDispatch, setIsDispatch] = React.useState(false);
@@ -17,7 +21,7 @@ const Orders = () => {
   const [canPay, setCanPay] = React.useState(false);
   const [selectedRows, setSelectedRows] = React.useState<any[]>([]);
   const { isLoading, isError, isSuccess, data } = useQuery({
-    queryKey: ["alldrivers",isOpen],
+    queryKey: ["allorders",[isOpen]],
     queryFn: fetchOrders,
   });
   console.log("Edit Flag", editFlag);
@@ -38,8 +42,6 @@ const Orders = () => {
   const handleSelectionChange = (selectionModel: any) => {
     console.log('Selected Rows:', selectionModel);
     setSelectedRows(selectionModel);
-   
-    
   };
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 20 },
@@ -124,6 +126,12 @@ const Orders = () => {
   const handleAdd = () => {
     setIsOpen(true);
     setEditFlag(false);
+     // Simulate adding a new order (e.g., after closing the modal)
+     /*setTimeout(() => {
+      // Invalidate the query to refetch data
+      queryClient.invalidateQueries({ queryKey: ["alldrivers"] });
+    }, 1000); // Adjust timing based on your actual add order logic
+    */
   };
   const handlePayment = () => {
    
@@ -237,7 +245,12 @@ console.log("CanPay",canPay);
             id={order}
             slug={"order"}
             isOpen={isOpen}
-            setIsOpen={setIsOpen}
+            setIsOpen={(isOpen) => {
+              setIsOpen(isOpen);
+              if (!isOpen) {
+                queryClient.invalidateQueries({ queryKey: ["allorders"] });
+              }
+            }}
             editFlag={editFlag}
           />
         )}
@@ -255,7 +268,12 @@ console.log("CanPay",canPay);
             id={order}
             slug={"payment"}
             isOpen={canPay}
-            setIsOpen={setCanPay}
+            setIsOpen={(isOpen) => {
+              setCanPay(isOpen);
+              if (!isOpen) {
+                queryClient.invalidateQueries({ queryKey: ["allorders"] });
+              }
+            }}
             editFlag={editFlag}
           />
         )}

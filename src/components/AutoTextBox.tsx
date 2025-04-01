@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
+import {getUserProfile} from "../commons/Utility"; // Update the path to the correct location
 
 // Define types for the option and the props
 export interface Option {
   id: string; // or number, depending on your API response
   name: string; // or any other property that represents the option
+  phone:string;
+  email:string;
+  address:string;
+  businessName:string;
 }
 
 interface SelectWithSearchProps {
@@ -29,9 +34,6 @@ const AutoTextBox: React.FC<SelectWithSearchProps> = ({
       setOptions([]);
       return;
     }
-    const getAuthToken = (): string => {
-      return localStorage.getItem("token") || "";
-    };
     const fetchOptions = async () => {
       setLoading(true);
       try {
@@ -42,12 +44,12 @@ const AutoTextBox: React.FC<SelectWithSearchProps> = ({
           {
             method: "GET",
             headers: {
-              "Authorization": `Bearer ${getAuthToken()}`, // Send Authorization header
+              "Authorization": `Bearer ${getUserProfile()?.token}`, // Send Authorization header
               "Content-Type": "application/json", // Ensure JSON format
             },
           });
         const data = await response.json();
-        //console.log("data:",data);
+        console.log("data:",data);
         setOptions(data); // Assuming the API response is an array of options
       } catch (error) {
         console.error("Error fetching options:", error);
@@ -65,6 +67,7 @@ const AutoTextBox: React.FC<SelectWithSearchProps> = ({
   };
 
   const handleSelect = (option: Option) => {
+    console.log("handleSelect::Selected option:", option);
     onSelect(option);
     setInputValue(option.name); // Set input value to the selected option's name
     setOptions([]); // Close the dropdown after selection

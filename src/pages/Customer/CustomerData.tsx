@@ -1,3 +1,4 @@
+import {getUserProfile, killProfile } from "../../commons/Utility";
 export interface Customer {
   id: number;
   firstname: string;
@@ -16,9 +17,8 @@ export interface Customer {
     status:number;
     message:string;
   }
-const getAuthToken = (): string => {
-  return localStorage.getItem("token") || "";
-};
+
+
 //const apiUrl = "http://127.0.0.1:8080/Flee/app";//env.REACT_APP_API_URL;
 //const environment = process.env.REACT_APP_ENVIRONMENT;
 const apiUrl = import.meta.env.VITE_API_URL;
@@ -27,12 +27,15 @@ export const fetchCustomers = async (): Promise<Customer[]> => {
     {
       method: "GET",
       headers: {
-        "Authorization": `Bearer ${getAuthToken()}`, // Send Authorization header
+        "Authorization": `Bearer ${getUserProfile()?.token}`, // Send Authorization header
         "Content-Type": "application/json", // Ensure JSON format
       },
     });
   console.log(response);
   if (!response.ok) {
+    if (response.status === 401) {
+      killProfile();
+    }else
     throw new Error("Failed to fetch users");
   }
   return response.json();
@@ -44,12 +47,15 @@ export const fetchCustomer = async (id:string): Promise<Customer> => {
     {
       method: "GET",
       headers: {
-        "Authorization": `Bearer ${getAuthToken()}`, // Send Authorization header
+        "Authorization": `Bearer ${getUserProfile()?.token}`, // Send Authorization header
         "Content-Type": "application/json", // Ensure JSON format
       },
     });
   console.log(response);
   if (!response.ok) {
+    if (response.status === 401) {
+      killProfile();
+    }else
     throw new Error("Failed to fetch customer");
   }
   const data: Customer = await response.json();
@@ -72,11 +78,14 @@ export const delCustomer = async (id: string): Promise<void> => {
           method: "DELETE",
           headers: {
               "Content-Type": "application/json",
-              "Authorization": `Bearer ${getAuthToken()}`, // Send Authorization header
+              "Authorization": `Bearer ${getUserProfile()?.token}`, // Send Authorization header
           },
       });
 
       if (!response.ok) {
+        if (response.status === 401) {
+          killProfile();
+        }else
           throw new Error(`Error: ${response.status} - ${response.statusText}`);
       }
 
@@ -92,12 +101,15 @@ export const postData = async (url: string, method:string,data: any) => {
     method: method,
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${getAuthToken()}`, // Send Authorization header
+      "Authorization": `Bearer ${getUserProfile()?.token}`, // Send Authorization header
     },
     body: JSON.stringify(data),
   });
   console.log('PostData::',response)
   if (!response.ok) {
+    if (response.status === 401) {
+      killProfile();
+    }else
     throw new Error("Failed to send data");
   }
 
@@ -114,7 +126,7 @@ export async function fetchData2<T>(
       method,
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${getAuthToken()}`, // Send Authorization header
+        "Authorization": `Bearer ${getUserProfile()?.token}`, // Send Authorization header
       },
     };
 
@@ -125,6 +137,9 @@ export async function fetchData2<T>(
     const response = await fetch(url, options);
 
     if (!response.ok) {
+      if (response.status === 401) {
+        killProfile();
+      }else
       throw new Error(
         `HTTP error! Status: ${response.status} - ${response.statusText}`
       );

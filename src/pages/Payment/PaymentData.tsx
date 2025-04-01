@@ -1,3 +1,5 @@
+
+
 export interface Dispatch {
     id: number;
     orderId: string;
@@ -25,6 +27,7 @@ export interface Dispatch {
     orderId:string;
     paymentDate:string;
     amount:number;
+    postedBy:number;
   }
 
   interface Carrier {
@@ -58,7 +61,8 @@ export interface Dispatch {
     driverId: number,
     orderItem: string,
     orderDate: string,
-    paid:string
+    paid:string,
+    postedBy:number,
   }
   export interface Driver {
     id: number;
@@ -72,10 +76,8 @@ export interface Dispatch {
     nextPhone: string;
     created: string;
   }
-  //order_id,driver_id,dispatch_date,status_id
-  const getAuthToken = (): string => {
-    return localStorage.getItem("token") || "";
-  };
+  import { getUserProfile, killProfile } from "../../commons/Utility";
+
   //const apiUrl = "http://127.0.0.1:8080/Flee/app";//env.REACT_APP_API_URL;
   const apiUrl = import.meta.env.VITE_API_URL;
   export const searchDriverUrl = `${apiUrl}/driver/search`;
@@ -86,12 +88,15 @@ export interface Dispatch {
       {
         method: "GET",
         headers: {
-          "Authorization": `Bearer ${getAuthToken()}`, // Send Authorization header
+          "Authorization": `Bearer ${getUserProfile()?.token}`, // Send Authorization header
           "Content-Type": "application/json", // Ensure JSON format
         },
       });
     console.log(response);
     if (!response.ok) {
+      if (response.status === 401) {
+       killProfile();
+      }else
       throw new Error("Failed to fetch driver");
     }
     const data: Driver = await response.json();
@@ -104,12 +109,15 @@ export interface Dispatch {
       {
         method: "GET",
         headers: {
-          "Authorization": `Bearer ${getAuthToken()}`, // Send Authorization header
+          "Authorization": `Bearer ${getUserProfile()?.token}`, // Send Authorization header
           "Content-Type": "application/json", // Ensure JSON format
         },
       });
     //console.log(response);
     if (!response.ok) {
+      if (response.status === 401) {
+        killProfile();
+      }else
       throw new Error("Failed to fetch order");
     }
     const data: Order = await response.json();
@@ -121,12 +129,15 @@ export interface Dispatch {
       {
         method: "GET",
         headers: {
-          "Authorization": `Bearer ${getAuthToken()}`, // Send Authorization header
+          "Authorization": `Bearer ${getUserProfile()?.token}`, // Send Authorization header
           "Content-Type": "application/json", // Ensure JSON format
         },
       });
     console.log(response);
     if (!response.ok) {
+      if (response.status === 401) {
+       killProfile();
+      }else
       throw new Error("Failed to fetch users");
     }
     return response.json();
@@ -138,19 +149,22 @@ export interface Dispatch {
       {
         method: "GET",
         headers: {
-          "Authorization": `Bearer ${getAuthToken()}`, // Send Authorization header
+          "Authorization": `Bearer ${getUserProfile()?.token}`, // Send Authorization header
           "Content-Type": "application/json", // Ensure JSON format
         },
       });
     console.log(response);
     if (!response.ok) {
+      if (response.status === 401) {
+        killProfile();
+      }else
       throw new Error("Failed to fetch driver");
     }
     const data: Dispatch = await response.json();
     return data;
   };
   export const savePayment = (pay: any) => {
-    console.log(pay);
+    console.log("Pay:"+pay);
     const resp = postData(`${apiUrl}/payment/`,"POST", pay)
       .then((data) => console.log("Success:", data))
       .catch((error) => console.error("Error:", error.message));
@@ -162,11 +176,14 @@ export interface Dispatch {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${getAuthToken()}`, // Send Authorization header
+                "Authorization": `Bearer ${getUserProfile()?.token}`, // Send Authorization header
             },
         });
   
         if (!response.ok) {
+          if (response.status === 401) {
+          killProfile();
+          }else
             throw new Error(`Error: ${response.status} - ${response.statusText}`);
         }
   
@@ -182,12 +199,15 @@ export interface Dispatch {
       method: method,
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${getAuthToken()}`, // Send Authorization header
+        "Authorization": `Bearer ${getUserProfile()?.token}`, // Send Authorization header
       },
       body: data,//JSON.stringify(data),
     });
     console.log('PostData::',response)
     if (!response.ok) {
+      if (response.status === 401) {
+        killProfile();
+      }else
       throw new Error("Failed to send data");
     }
   
@@ -204,7 +224,7 @@ export interface Dispatch {
         method,
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${getAuthToken()}`, // Send Authorization header
+          "Authorization": `Bearer ${getUserProfile()?.token}`, // Send Authorization header
         },
       };
   

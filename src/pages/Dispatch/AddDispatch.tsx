@@ -31,7 +31,7 @@ const AddDispatch: React.FC<AddDataProps> = ({
   // add driver
   const [orderId, setOrderId] = React.useState<number>(0);
   const [driverId, setDriverId] = React.useState("");
-  const [statusId] = React.useState(0);
+  const [statusId, setstatusId] = React.useState(0);
   const [driverName, setDriverName] = React.useState("");
 
     const [pickupName, setPickupName] = React.useState("");
@@ -116,6 +116,9 @@ const AddDispatch: React.FC<AddDataProps> = ({
   };
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    setstatusId(1);
+    
     const formData = {
       orderId:parseInt(id),
       dispatchDate,

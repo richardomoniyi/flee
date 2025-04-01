@@ -6,7 +6,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
 import { fetchOrder, savePayment } from "./PaymentData";
-import {formatCurrency} from "../../commons/Utility";
+import {formatCurrency, getUserProfile} from "../../commons/Utility";
 
 interface AddDataProps {
   id: string;
@@ -36,6 +36,7 @@ const AddDispatch: React.FC<AddDataProps> = ({
   const[customerId, setCustomerId] = React.useState("");
   const [paymentDate, setPaymentDate] = React.useState<Dayjs | null>(dayjs());
   const [formDriverIsEmpty, setFormDriverIsEmpty] = React.useState(true);
+  const [postedBy,setPostedBy] = React.useState(-1);
 
   const getOrderData = async () => {
     try {
@@ -51,6 +52,7 @@ const AddDispatch: React.FC<AddDataProps> = ({
       setOrderId(order.orderId);
       setOrderDate(order.orderDate);
       setPaid(order.paid);
+      setPostedBy(order.postedBy)
 
       //const driver = await fetchDriver("" + order.driverId);
       //setDriverName(driver.firstname + " " + driver.lastname);
@@ -69,14 +71,16 @@ const AddDispatch: React.FC<AddDataProps> = ({
  
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setPostedBy(parseInt(getUserProfile()?.user || "-1"));
     const formData = {
       orderId: id,
       paymentDate,
       customerId,
       amount,
+      postedBy:1,
     };
     const pay = JSON.stringify(formData);
-    //console.log(driver);
+    console.log(pay);
     //setPaymentDate(dipatch);
     
     

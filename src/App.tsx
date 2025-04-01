@@ -28,6 +28,7 @@ import Payments from './pages/Payment/Payments';
 import Customers from './pages/Customer/Customers';
 import Users from './pages/User/Users';
 import Chatbot from './pages/Chatbot';
+import { getUserProfile } from './commons/Utility';
 //import { GlobalProvider } from "./components/GlobalContext";
 
 
@@ -56,76 +57,14 @@ function App() {
         </div>
         <Footer />
       </div>
-      <Chatbot/>
       </>
       //</GlobalProvider>
     );
   };
-
-  /*const router = createBrowserRouter([
-    {
-      path: '/',
-      element: <Layout />,
-      children: [
-        {
-          path: '/',
-          element: <Home />,
-        },
-        {
-          path: '/profile',
-          element: <Profile />,
-        },
-        {
-          path: '/profile/edit',
-          element: <EditProfile />,
-        },
-        {
-          path: '/users',
-          element: <Users />,
-        },
-        {
-          path: '/users/:id',
-          element: <User />,
-        },
-        {
-          path: '/customers',
-          element: <Customers />,
-        },
-        {
-          path: '/orders',
-          element: <Orders />,
-        },
-        {
-          path: '/drivers',
-          element: <Drivers />,
-        },
-        {
-          path: '/payments',
-          element: <Payments />,
-        },
-        {
-          path: '/products/:id',
-          element: <Product />,
-        },
-        {
-          path: '/charts',
-          element: <Charts />,
-        },
-        {
-          path: '/logs',
-          element: <Logs />,
-        },
-      ],
-      errorElement: <Error />,
-    },
-    {
-      path: '/login',
-      element: <Login />,
-    },
-  ]);*/
   const getRole = (): string => {
-    return localStorage.getItem("role") || "0";
+    return getUserProfile()?.role || "0";
   };
+  
   const router = createBrowserRouter([
     {
       path: '/',
@@ -197,6 +136,68 @@ function App() {
   ]);
   return <RouterProvider router={router} />;
 }
+  /*const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Layout />,
+      children: [
+        {
+          path: '/',
+          element: <Home />,
+        },
+        {
+          path: '/profile',
+          element: <Profile />,
+        },
+        {
+          path: '/profile/edit',
+          element: <EditProfile />,
+        },
+        {
+          path: '/users',
+          element: <Users />,
+        },
+        {
+          path: '/users/:id',
+          element: <User />,
+        },
+        {
+          path: '/customers',
+          element: <Customers />,
+        },
+        {
+          path: '/orders',
+          element: <Orders />,
+        },
+        {
+          path: '/drivers',
+          element: <Drivers />,
+        },
+        {
+          path: '/payments',
+          element: <Payments />,
+        },
+        {
+          path: '/products/:id',
+          element: <Product />,
+        },
+        {
+          path: '/charts',
+          element: <Charts />,
+        },
+        {
+          path: '/logs',
+          element: <Logs />,
+        },
+      ],
+      errorElement: <Error />,
+    },
+    {
+      path: '/login',
+      element: <Login />,
+    },
+  ]);*/
+  
 /*const router = createBrowserRouter([
   {
     path: '/',

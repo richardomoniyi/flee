@@ -10,6 +10,33 @@ import moment from "moment";
   return dateStr;
   // Example Output: "Feb 28th, 2025 12:44 PM"
 };*/
+export interface UserProfile {
+  token: string,
+  profileName: string,
+  role: string,
+  user: string,
+};
+export const getUserProfile = (): UserProfile | null => {
+  //return localStorage.getItem("token") || "";
+  const storedData = localStorage.getItem("profile");
+
+  if (storedData) {
+    // Parse the JSON string back to an object
+    const userProfile = JSON.parse(storedData);
+
+    console.log("Token:", userProfile.token);
+    console.log("Profile Name:", userProfile.profileName);
+    console.log("Role:", userProfile.role);
+    console.log("User:", userProfile.user);
+    return userProfile;
+  }
+
+  return null; // Explicitly return undefined if no storedData
+};
+export const killProfile = (): void => {
+  localStorage.removeItem("userProfile");
+  window.location.href = "/login"; // Redirect to login page
+}
 export const removeFormatting = (formattedValue: string): number => {
   console.log("removeFormatting Amount::",formattedValue);
   return parseFloat(formattedValue.replace(/[^0-9.]/g, "")) || 0;

@@ -5,6 +5,7 @@ import Logo from "../components/Logo";
 import { useState } from "react";
 import { login, forgotFetch, changeFetch, Answer } from "./User/UserData";
 import OTPInput from "../components/OTPInput";
+import { UserProfile } from "../commons/Utility";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -114,15 +115,26 @@ const Login = () => {
      
       if (res.status === 0) {
         const profile = res.message.split(",");
-        localStorage.setItem("token", profile[0]);//res.message);
+        /*localStorage.setItem("token", profile[0]);//res.message);
         localStorage.setItem("profileName", profile[1]);
         localStorage.setItem("role", profile[2]);
+        localStorage.setItem("user", profile[3]);
+        */
         /*
         <option value="0">Support</option>
         <option value="1">Authoriser</option>
         <option value="2">Finance</option>
         <option value="3">Administrator</option>
         */
+        //console.log("Profile::",profile);
+        const user: UserProfile = {
+          token: profile[0],
+          profileName: profile[1],
+          role: profile[2],
+          user: profile[3],
+        };
+        console.log("User::", user);
+        localStorage.setItem("profile", JSON.stringify(user));
         navigate("/dashboard/home");
       } else {
         //newErrors.email = res.message;

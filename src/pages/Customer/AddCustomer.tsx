@@ -223,8 +223,7 @@ const AddCustomer: React.FC<AddDataProps> = ({
                 </option>
                 <option value="0">Default</option>
                 <option value="1">Basic</option>
-                <option value="2">Standard</option>
-                <option value="3">HighNet</option>
+                <option value="2">HighNet</option>
               </select>
             </label>
             <label className="form-control w-full">
@@ -241,9 +240,9 @@ const AddCustomer: React.FC<AddDataProps> = ({
                 <option disabled selected>
                   Select one
                 </option>
-                <option value="0">Default</option>
-                <option value="2">Advanced</option>
-                <option value="3">Extra Earner</option>
+                <option value="1">Default</option>
+                <option value="2">Standard</option>
+                <option value="3">Specialized</option>
               </select>
             </label>
             <label className="form-control w-full">
