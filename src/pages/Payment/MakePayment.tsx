@@ -38,7 +38,7 @@ const AddDispatch: React.FC<AddDataProps> = ({
   const [formDriverIsEmpty, setFormDriverIsEmpty] = React.useState(true);
   const [,setPostedBy] = React.useState(-1);
 
-  const getOrderData = async () => {
+  const getOrderData = async () => { 
     try {
       //const dispatch = await fetchDispatch(id);
       //console.log(dispatch);
