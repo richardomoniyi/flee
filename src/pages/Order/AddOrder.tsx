@@ -153,10 +153,11 @@ const AddOrder: React.FC<AddDataProps> = ({
       discount,//:removeFormatting(discount),
       orderId,
       orderItem,
-      orderDate: formatDateISO(),
+      orderDate,
       paid,
       postedBy
     };
+    console.log(orderDate?.toString);
     const order = JSON.stringify(formData);
     //console.log(order);
     const result =  saveOrder(order);
