@@ -1,4 +1,5 @@
 // import React from 'react';
+import { getUserProfile } from '../../commons/Utility';
 import { menu } from './data';
 import MenuItem from './MenuItem';
 
@@ -6,7 +7,8 @@ import MenuItem from './MenuItem';
 
 const Menu = () => {
   const getRole = (): string => {
-    return localStorage.getItem("role") || "0";
+    const userProfile = getUserProfile();
+    return userProfile ? userProfile.role : '';
   };
   return (
     <div className="w-full">
