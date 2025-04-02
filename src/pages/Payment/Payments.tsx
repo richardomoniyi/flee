@@ -3,7 +3,7 @@ import { GridColDef } from "@mui/x-data-grid";
 import DataTable from "../../components/DataTable";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { fetchPayments, delDispatch } from "./PaymentData";
+import { fetchPayments } from "./PaymentData";
 //import XDialog from "../../components/XDialog";
 import { formatDate, formatToNaira } from "../../commons/Utility";
 import SimplePay from "./SimplePay";

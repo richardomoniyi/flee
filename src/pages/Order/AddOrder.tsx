@@ -124,9 +124,9 @@ const AddOrder: React.FC<AddDataProps> = ({
     setDropoffCity(city);
   }
 
-  const formatDateISO = (): string => {
+  /*const formatDateISO = (): string => {
     return new Date().toISOString(); // Outputs: "2025-02-23T23:59:59.123Z"
-  };
+  };*/
   //const selectUrl = "https://jsonplaceholder.typicode.com/users";
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

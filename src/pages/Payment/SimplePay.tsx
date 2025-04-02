@@ -6,7 +6,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
 import { fetchOrder, savePayment } from "./PaymentData";
-import { formatCurrency, getUserProfile } from "../../commons/Utility";
+import { getUserProfile } from "../../commons/Utility";
 import AutoTextBox from "../../components/AutoTextBox";
 import { searchCustomerUrl } from "../Order/OrderData";
 import { Option } from "../../components/AutoTextBox";
@@ -32,7 +32,7 @@ const SimplePay: React.FC<AddDataProps> = ({
   const [orderId, setOrderId] = React.useState("");
   const [paid, setPaid] = React.useState("0");
   const [amount, setAmount] = React.useState("");
-  const [orderDate, setOrderDate] = React.useState("");
+  const [, setOrderDate] = React.useState("");
   const [customerId, setCustomerId] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [paymentDate, setPaymentDate] = React.useState<Dayjs | null>(dayjs());
