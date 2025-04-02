@@ -115,6 +115,7 @@ const Dispatchs = () => {
                 borderRadius: "4px",
                 cursor: isLoading ? "not-allowed" : "pointer",
               }}
+              disabled={isLoading}
             >
               Deposit
             </button>

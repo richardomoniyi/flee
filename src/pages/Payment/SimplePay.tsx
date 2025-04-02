@@ -149,7 +149,7 @@ const SimplePay: React.FC<AddDataProps> = ({
             </div>
             <input
               type="text"
-              placeholder="description"
+              placeholder="Deposit"
               className="input input-bordered w-full"
               name="description"
               id="description"

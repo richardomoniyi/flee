@@ -1,3 +1,5 @@
+import { getUserProfile } from "../../commons/Utility";
+
 export interface User {
   id: number;
   firstname: string;
@@ -19,19 +21,16 @@ export interface Answer{
   status:number;
   message:string;
 }
-const getAuthToken = (): string => {
-  return localStorage.getItem("token") || "";
-};
+
 //const apiUrl = "http://127.0.0.1:8080/Flee/app"; //env.REACT_APP_API_URL;
 //const environment = process.env.REACT_APP_ENVIRONMENT;
 const apiUrl = import.meta.env.VITE_API_URL;
 export const fetchUsers = async (): Promise<User[]> => {
-  console.log("Token:",getAuthToken());
   const response = await fetch(`${apiUrl}/userdata/`,
     {
       method: "GET",
       headers: {
-        "Authorization": `Bearer ${getAuthToken()}`, // Send Authorization header
+        "Authorization": `Bearer ${getUserProfile()?.token}`, // Send Authorization header
         "Content-Type": "application/json", // Ensure JSON format
       },
     });
@@ -71,7 +70,7 @@ export const fetchUser = async (id: string): Promise<User> => {
     {
       method: "GET",
       headers: {
-        "Authorization": `Bearer ${getAuthToken()}`, // Send Authorization header
+        "Authorization": `Bearer ${getUserProfile()?.token}`, // Send Authorization header
         "Content-Type": "application/json", // Ensure JSON format
       },
     });
@@ -100,7 +99,7 @@ export const delUser = async (id: string): Promise<void> => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${getAuthToken()}`, // Send Authorization header
+        "Authorization": `Bearer ${getUserProfile()?.token}`, // Send Authorization header
       },
     });
 
@@ -126,7 +125,7 @@ export const postData = async (url: string, method:string,data: any) => {
     method: method,
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${getAuthToken()}`, // Send Authorization header
+      "Authorization": `Bearer ${getUserProfile()?.token}`, // Send Authorization header
     },
     body: JSON.stringify(data),
   });
@@ -160,7 +159,7 @@ export async function fetchDataResponse<T>(
       method,
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${getAuthToken()}`, // Send Authorization header
+        "Authorization": `Bearer ${getUserProfile()?.token}`, // Send Authorization header
       },
     };
 
