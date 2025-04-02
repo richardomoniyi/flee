@@ -6,7 +6,10 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
 import { fetchOrder, savePayment } from "./PaymentData";
-import {formatCurrency, getUserProfile} from "../../commons/Utility";
+import { formatCurrency, getUserProfile } from "../../commons/Utility";
+import AutoTextBox from "../../components/AutoTextBox";
+import { searchCustomerUrl } from "../Order/OrderData";
+import { Option } from "../../components/AutoTextBox";
 
 interface AddDataProps {
   id: string;
@@ -16,7 +19,7 @@ interface AddDataProps {
   editFlag: boolean;
 }
 
-const AddDispatch: React.FC<AddDataProps> = ({
+const SimplePay: React.FC<AddDataProps> = ({
   id,
   slug,
   isOpen,
@@ -26,36 +29,26 @@ const AddDispatch: React.FC<AddDataProps> = ({
   // global
   const [showModal, setShowModal] = React.useState(false);
   // add driver
-  const [orderId, setOrderId] = React.useState("");;
-  const [, setPayAmount] = React.useState(0);
+  const [orderId, setOrderId] = React.useState("");
   const [paid, setPaid] = React.useState("0");
-  const [pickupName, setPickupName] = React.useState("");
-  const [dropoffName, setDropoffName] = React.useState("");
-  const [amount, setAmount] = React.useState("0");
+  const [amount, setAmount] = React.useState("");
   const [orderDate, setOrderDate] = React.useState("");
-  const[customerId, setCustomerId] = React.useState("");
+  const [customerId, setCustomerId] = React.useState("");
+  const [description, setDescription] = React.useState("");
   const [paymentDate, setPaymentDate] = React.useState<Dayjs | null>(dayjs());
   const [formDriverIsEmpty, setFormDriverIsEmpty] = React.useState(true);
-  const [,setPostedBy] = React.useState(-1);
+  const [, setPostedBy] = React.useState(-1);
 
-  const getOrderData = async () => { 
+  const getOrderData = async () => {
     try {
-      //const dispatch = await fetchDispatch(id);
-      //console.log(dispatch);
       const order = await fetchOrder(id);
       console.log("getOrderData", order);
-      setPickupName(order.pickupName);
       setCustomerId(order.customerId);
-      setDropoffName(order.dropoffName);
       setAmount("" + order.amount);
-      setPayAmount(order.amount);
-      setOrderId(order.orderId);
+      setOrderId("000-000-000-000");
       setOrderDate(order.orderDate);
       setPaid(order.paid);
-      setPostedBy(order.postedBy)
-
-      //const driver = await fetchDriver("" + order.driverId);
-      //setDriverName(driver.firstname + " " + driver.lastname);
+      setPostedBy(order.postedBy);
     } catch (error) {
       console.log(error);
       //setError("Failed to load data");
@@ -68,12 +61,11 @@ const AddDispatch: React.FC<AddDataProps> = ({
     }
   }, [isOpen]);
 
- 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const postedBy = parseInt(getUserProfile()?.user || "-1");
     const formData = {
-      orderId: id,
+      orderId: 1,
       paymentDate,
       customerId,
       amount,
@@ -82,10 +74,9 @@ const AddDispatch: React.FC<AddDataProps> = ({
     const pay = JSON.stringify(formData);
     console.log(pay);
     //setPaymentDate(dipatch);
-    
-    
+
     const resp = savePayment(pay);
-    console.log("Resp:",resp);
+    console.log("Resp:", resp);
     toast("Payment Made!", { icon: "😛" });
     setShowModal(false);
     setIsOpen(false);
@@ -96,21 +87,22 @@ const AddDispatch: React.FC<AddDataProps> = ({
   }, [isOpen]);
 
   React.useEffect(() => {
-    if (amount === "" ||
-     amount === "0" ||
-    paid === "1")
-    {
+    if (amount === "" || amount === "0" || paid === "1") {
       setFormDriverIsEmpty(true);
     }
-    if (amount !== "" &&
-      amount !== "0" &&
-      paid !== "1"
-    ) {
+    if (amount !== "" && amount !== "0" && paid !== "1") {
       setFormDriverIsEmpty(false);
     }
   }, [orderId, amount, customerId, paymentDate]);
   console.log("payment", slug);
   if (slug === "payment") {
+
+    const handleCustomerSelect = (selectedOption: Option) => {
+      console.log("customer:",selectedOption.name);
+      setCustomerId(selectedOption.id);
+      setPostedBy(parseInt(getUserProfile()?.user || "-1"));
+    };
+
     return (
       <div className="w-screen h-screen fixed top-0 left-0 flex justify-center items-center bg-black/75 z-[99]">
         <div
@@ -129,52 +121,50 @@ const AddDispatch: React.FC<AddDataProps> = ({
             >
               <HiOutlineXMark className="text-xl font-bold" />
             </button>
-            <span className="text-2xl font-bold">Order Payment</span>
+            <span className="text-2xl font-bold">Payment</span>
           </div>
           <form
             onSubmit={handleSubmit}
             className="w-full grid grid-cols-1 lg:grid-cols-2 gap-4"
           >
-            <div className="label">
-              <b>Order Date:</b>
-              {orderId}
-            </div>
-            <div className="label">
-              <b>Order Date:</b>
-              {orderDate}
-            </div>
-            <div className="label">
-              <b>PickUp Name:</b>
-              {pickupName}
-            </div>
-            <div className="label">
-              <b>DropOff Name:</b>
-              {dropoffName}
-            </div>
+           
+            <AutoTextBox
+              value={customerId}
+              apiUrl={searchCustomerUrl} // Replace with your actual API URL
+              placeholder="Customer Name"
+              onSelect={handleCustomerSelect} // Pass external event handler
+            />
             <div>
               <div className="label">
                 <b>Date:</b>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DatePicker
                     value={paymentDate}
-                    onChange={(paymentDateDate) => setPaymentDate(paymentDateDate)}
+                    onChange={(paymentDateDate) =>
+                      setPaymentDate(paymentDateDate)
+                    }
                   />
                 </LocalizationProvider>
               </div>
             </div>
-            <div className="label">
-              <b>Cost:</b>
-              <span>
-                {formatCurrency(amount)}
-              </span>
-            </div>
-            <div className="label">
-              <b>Paid:</b>
-              <span>
-                {paid === '1' ? "Yes":"No"}
-              </span>
-            </div>
-          
+            <input
+              type="text"
+              placeholder="description"
+              className="input input-bordered w-full"
+              name="description"
+              id="description"
+              value={description}
+              onChange={(element) => setDescription(element.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Amount"
+              className="input input-bordered w-full"
+              name="amount"
+              id="amount"
+              value={amount}
+              onChange={(element) => setAmount(element.target.value)}
+            />
             <button
               className={`mt-5 btn ${
                 formDriverIsEmpty ? "btn-disabled" : "btn-primary"
@@ -191,4 +181,4 @@ const AddDispatch: React.FC<AddDataProps> = ({
   return null;
 };
 
-export default AddDispatch;
+export default SimplePay;

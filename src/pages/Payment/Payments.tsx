@@ -1,29 +1,26 @@
 import React from "react";
 import { GridColDef } from "@mui/x-data-grid";
 import DataTable from "../../components/DataTable";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { fetchPayments, delDispatch } from "./PaymentData";
-import XDialog from "../../components/XDialog";
-import {formatDate,formatToNaira} from "../../commons/Utility";
-
-
+//import XDialog from "../../components/XDialog";
+import { formatDate, formatToNaira } from "../../commons/Utility";
+import SimplePay from "./SimplePay";
 
 const Dispatchs = () => {
+  const queryClient = useQueryClient();
   const [isOpenDialog] = React.useState(false);
-  const [dispatch] = React.useState("0");
   const [orderdate] = React.useState("");
   const [dispatchDate] = React.useState("");
+  const [canPay,setCanPay] = React.useState(false);
+  const [payId] = React.useState(0);
 
   const { isLoading, isError, isSuccess, data } = useQuery({
-    queryKey: ["dispatchkey",[isOpenDialog]],
+    queryKey: ["payments", [isOpenDialog]],
     queryFn: fetchPayments,
   });
 
- 
-  const handleDialogConfirm = () => {
-    delDispatch(dispatch);
-  };
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 20 },
     {
@@ -62,7 +59,7 @@ const Dispatchs = () => {
       minWidth: 50,
       type: "number",
       flex: 1,
-      renderCell: (params) => formatToNaira(params.value)
+      renderCell: (params) => formatToNaira(params.value),
     },
   ];
 
@@ -82,9 +79,13 @@ const Dispatchs = () => {
     }
   }, [isError, isLoading, isSuccess]);
 
-  console.log("orderdate",orderdate);
-  console.log("dispatchDate",dispatchDate);
-  
+  console.log("orderdate", orderdate);
+  console.log("dispatchDate", dispatchDate);
+  const handlePayment = () => {
+    setCanPay(true)
+    try {
+    } catch (Exception) {}
+  };
   function handleButtonClick(_row: any, _action: string): void {
     throw new Error("Function not implemented.");
   }
@@ -103,6 +104,22 @@ const Dispatchs = () => {
               </span>
             )}
           </div>
+          {data && data.length > 0 && (
+            <button
+              onClick={handlePayment}
+              style={{
+                padding: "8px 16px",
+                backgroundColor: isLoading ? "#ccc" : "#28a745",
+                color: "white",
+                border: "none",
+                borderRadius: "4px",
+                cursor: isLoading ? "not-allowed" : "pointer",
+              }}
+              disabled={isLoading}
+            >
+              Pay
+            </button>
+          )}
         </div>
 
         {isLoading ? (
@@ -139,11 +156,25 @@ const Dispatchs = () => {
           </>
         )}
 
-        {isOpenDialog && (
+        {/*isOpenDialog && (
           <XDialog
             title="Delete Confirmation"
             message="Are you sure you want to delete this item?"
             onConfirm={handleDialogConfirm}
+          />
+        )*/}
+        {canPay && (
+          <SimplePay
+            id={""+payId}
+            slug={"payment"}
+            isOpen={canPay}
+            setIsOpen={(isOpen) => {
+              setCanPay(isOpen);
+              if (!isOpen) {
+                queryClient.invalidateQueries({ queryKey: ["payments"] });
+              }
+            }}
+            editFlag={false}
           />
         )}
       </div>
@@ -152,3 +183,4 @@ const Dispatchs = () => {
 };
 
 export default Dispatchs;
+
