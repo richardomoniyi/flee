@@ -123,7 +123,7 @@ export interface Dispatch {
     const data: Order = await response.json();
     return data;
   };
-  
+  //comment server
   export const fetchPayments = async (): Promise<PaymentData[]> => {
     console.log("fetchPayments....");
     const response = await fetch(`${apiUrl}/payment/list/`,

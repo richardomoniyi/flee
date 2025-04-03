@@ -73,7 +73,7 @@ function App() {
     {
       path: '/login',
       element: <Login />,
-    },
+    }, 
     {
       path: '/tracking',
       element: <Tracker />,
@@ -136,6 +136,7 @@ function App() {
   ]);
   return <RouterProvider router={router} />;
 }
+//New addition to the app
   /*const router = createBrowserRouter([
     {
       path: '/',

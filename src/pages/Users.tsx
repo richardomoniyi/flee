@@ -131,7 +131,7 @@ const Users = () => {
             rows={data}
             includeActionColumn={true}
           />
-        ) : (
+        ) : ( //comment server
           <>
             <DataTable
               slug="users"

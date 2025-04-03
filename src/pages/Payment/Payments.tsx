@@ -79,8 +79,8 @@ const Dispatchs = () => {
     }
   }, [isError, isLoading, isSuccess]);
 
-  console.log("orderdate", orderdate);
-  console.log("dispatchDate", dispatchDate);
+  //console.log("orderdate", orderdate);
+  //console.log("dispatchDate", dispatchDate);
   const handlePayment = () => {
     setCanPay(true)
     try {
