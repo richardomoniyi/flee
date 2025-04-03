@@ -125,6 +125,7 @@ export interface Dispatch {
   };
   
   export const fetchPayments = async (): Promise<PaymentData[]> => {
+    console.log("fetchPayments....");
     const response = await fetch(`${apiUrl}/payment/list/`,
       {
         method: "GET",
@@ -133,7 +134,7 @@ export interface Dispatch {
           "Content-Type": "application/json", // Ensure JSON format
         },
       });
-    console.log(response);
+    console.log("fetchPayments:",response);
     if (!response.ok) {
       if (response.status === 401) {
        killProfile();
