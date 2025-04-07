@@ -58,7 +58,7 @@ const AddOrder: React.FC<AddDataProps> = ({
   const [dropoffState, setDropoffState] = useState("");
   const [dropoffCountry, setDropoffCountry] = useState("");
   const [paid] = useState("0");
-  const [postedBy,setPostedBy] = useState("-1");
+  const [postedBy, setPostedBy] = useState("-1");
 
   const getOrderData = async () => {
     try {
@@ -80,9 +80,9 @@ const AddOrder: React.FC<AddDataProps> = ({
       setDropoffPhone(order.dropoffPhone);
       setInstruction(order.instruction);
       setCustomer(order.customerId);
-      setAmount(""+order.amount);
+      setAmount("" + order.amount);
       setDiscount("" + order.discount);
-      setCarrierId(""+order.carrierId.id);
+      setCarrierId("" + order.carrierId.id);
       setCarrierRate("" + order.carrierRate);
       setOrderId(order.orderId);
       setOrderItem(order.orderItem);
@@ -147,23 +147,23 @@ const AddOrder: React.FC<AddDataProps> = ({
       dropoffDate,
       instruction,
       customerId,
-      amount,//:removeFormatting(discount),
+      amount, //:removeFormatting(discount),
       carrierId,
-      carrierRate,//:removeFormatting(discount),
-      discount,//:removeFormatting(discount),
+      carrierRate, //:removeFormatting(discount),
+      discount, //:removeFormatting(discount),
       orderId,
       orderItem,
       orderDate,
       paid,
-      postedBy
+      postedBy,
     };
     console.log(orderDate?.toString);
     const order = JSON.stringify(formData);
     //console.log(order);
-    const result =  saveOrder(order);
+    const result = saveOrder(order);
     const jsonResult = JSON.parse(JSON.stringify(result));
     //toast("Order Saved!", { icon: "😛" });
-    toast("Order Saved! "+jsonResult.message);
+    toast("Order Saved! " + jsonResult.message);
     setShowModal(false);
     setIsOpen(false);
   };
@@ -266,12 +266,13 @@ const AddOrder: React.FC<AddDataProps> = ({
   if (slug === "order") {
     //console.log("form status", formOrderIsEmpty);
     return (
-      <div className="w-screen h-screen fixed top-0 left-0 flex justify-center items-center bg-black/75 z-[99]" >
+      <div className="w-screen h-screen fixed top-0 left-0 flex justify-center items-center bg-black/75 z-[99]">
         <div
           className={`w-[80%] xl:w-[50%] rounded-lg p-7 bg-base-100 relative transition duration-300 flex flex-col items-stretch gap-5 ${
             showModal ? "translate-y-0" : "translate-y-full"
           }
-            ${showModal ? "opacity-100" : "opacity-0"}`} style={{ maxHeight: `80vh`, overflowY: `auto`} }
+            ${showModal ? "opacity-100" : "opacity-0"}`}
+          style={{ maxHeight: `80vh`, overflowY: `auto` }}
         >
           <div className="w-full flex justify-between pb-5 border-b border-base-content border-opacity-30">
             <button
@@ -344,10 +345,19 @@ const AddOrder: React.FC<AddDataProps> = ({
                 <option disabled selected value="">
                   -- Country --
                 </option>
-                <option value="Nigeria">Nigeria</option>
-                <option value="USA">United States</option>
+                <option value="Australia">Australia</option>
+                <option value="Brazil">Brazil</option>
                 <option value="Canada">Canada</option>
+                <option value="China">China</option>
+                <option value="France">France</option>
+                <option value="Germany">Germany</option>
+                <option value="India">India</option>
+                <option value="Japan">Japan</option>
+                <option value="Mexico">Mexico</option>
+                <option value="Nigeria">Nigeria</option>
+                <option value="SouthAfrica">South Africa</option>
                 <option value="UK">United Kingdom</option>
+                <option value="USA">United States</option>
               </select>
             </label>
             <StateDropDown
@@ -420,7 +430,7 @@ const AddOrder: React.FC<AddDataProps> = ({
               </select>
             </label>
             <StateDropDown
-             country={dropoffCountry}
+              country={dropoffCountry}
               name="dropoffState"
               value={dropoffState}
               onChange={handleDropOffStateChange}
