@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { fetchOrders } from "./OrderData";
 import AddOrder from "./AddOrder";
-import { formatDate } from "../../commons/Utility";
+import { formatDate,formatToNaira } from "../../commons/Utility";
 import AddDispatch from "../Dispatch/AddDispatch";
 import MakePayment from "../Payment/MakePayment";
 
@@ -75,12 +75,12 @@ const Orders = () => {
       flex: 1,
     },
     {
-      field: "pickupDate",
-      headerName: "Pickup Date",
+      field: "amount",
+      headerName: "Amount",
       minWidth: 40,
-      type: "string",
+      type: "number",
       flex: 1,
-      renderCell: (params) => formatDate(params.value),
+      renderCell: (params) => formatToNaira(params.value),
     },
     {
       field: "dropoffName",
