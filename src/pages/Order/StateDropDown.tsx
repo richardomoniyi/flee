@@ -52,12 +52,12 @@ const statesByCountry: Record<string, string[]> = {
     "Eastern Cape", "Free State", "Gauteng", "KwaZulu-Natal", "Limpopo", "Mpumalanga",
     "North West", "Northern Cape", "Western Cape"
   ],
-  Brazil: [
-    "Acre", "Alagoas", "Amapá", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo",
-    "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará",
-    "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte",
-    "Rio Grande do Sul", "Rio Verde", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"
-  ],
+ "Brazil": [
+  "Acre", "Alagoas", "Amapá", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás",
+  "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná",
+  "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul",
+  "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"
+],
   Mexico: [
     "Aguascalientes", "Baja California", "Baja California Sur", "Campeche", "Chiapas",
     "Chihuahua", "Coahuila", "Colima", "Durango", "Guanajuato", "Guerrero", "Hidalgo",
@@ -79,6 +79,67 @@ const statesByCountry: Record<string, string[]> = {
     "Jiangxi", "Jilin", "Liaoning", "Ningxia", "Qinghai", "Shaanxi", "Shandong", "Shanghai",
     "Shanxi", "Sichuan", "Tianjin", "Tibet", "Xinjiang", "Yunnan", "Zhejiang"
   ],
+  Italy: [
+    "Abruzzo", "Aosta Valley", "Apulia", "Basilicata", "Calabria", "Campania", "Emilia-Romagna",
+    "Friuli Venezia Giulia", "Lazio", "Liguria", "Lombardy", "Marche", "Molise", "Piedmont",
+    "Sardinia", "Sicily", "Tuscany", "Trentino-Alto Adige/Südtirol", "Umbria", "Veneto"
+  ],
+  Spain: [
+    "Andalusia", "Aragon", "Asturias", "Balearic Islands", "Basque Country", "Canary Islands",
+    "Cantabria", "Castile and León", "Castilla-La Mancha", "Catalonia", "Extremadura",
+    "Galicia", "La Rioja", "Madrid", "Murcia", "Navarre", "Valencian Community"
+  ],
+  Russia: [
+    "Adygea", "Altai Krai", "Altai Republic", "Amur Oblast", "Arkhangelsk Oblast",
+    "Astrakhan Oblast", "Bashkortostan", "Buryatia", "Chechen Republic", "Chelyabinsk Oblast",
+    "Chukotka Autonomous Okrug", "Chuvash Republic", "Dagestan", "Ingushetia", "Irkutsk Oblast",
+    "Ivanovo Oblast", "Jewish Autonomous Oblast", "Kabardino-Balkar Republic", "Kaliningrad Oblast",
+    "Kalmykia", "Kaluga Oblast", "Kamchatka Krai", "Karachay-Cherkess Republic", "Karelia",
+    "Kemerovo Oblast", "Khabarovsk Krai", "Khakassia", "Khanty-Mansi Autonomous Okrug",
+    "Kirov Oblast", "Komi Republic", "Kostroma Oblast", "Krasnodar Krai", "Krasnoyarsk Krai",
+    "Kurgan Oblast", "Kursk Oblast", "Leningrad Oblast", "Lipetsk Oblast", "Magadan Oblast",
+    "Mari El Republic", "Mordovia", "Moscow", "Moscow Oblast", "Murmansk Oblast",
+    "Nizhny Novgorod Oblast", "North Ossetia-Alania", "Novgorod Oblast", "Novosibirsk Oblast",
+    "Omsk Oblast", "Orenburg Oblast", "Oryol Oblast", "Penza Oblast", "Perm Krai",
+    "Primorsky Krai", "Pskov Oblast", "Rostov Oblast", "Ryazan Oblast", "Saint Petersburg",
+    "Sakha Republic", "Sakhalin Oblast", "Samara Oblast", "Saratov Oblast", "Smolensk Oblast",
+    "Stavropol Krai", "Sverdlovsk Oblast", "Tambov Oblast", "Tatarstan", "Tomsk Oblast",
+    "Tula Oblast", "Tver Oblast", "Tyumen Oblast", "Udmurt Republic", "Ulyanovsk Oblast",
+    "Vladimir Oblast", "Volgograd Oblast", "Vologda Oblast", "Voronezh Oblast",
+    "Yamalo-Nenets Autonomous Okrug", "Yaroslavl Oblast", "Zabaykalsky Krai"
+  ],
+  SouthKorea: [
+    "Seoul", "Busan", "Incheon", "Daegu", "Daejeon", "Gwangju", "Suwon", "Ulsan",
+    "Gyeonggi", "Gangwon", "North Chungcheong", "South Chungcheong", "North Jeolla",
+    "South Jeolla", "North Gyeongsang", "South Gyeongsang", "Jeju"
+  ],
+  Turkey: [
+    "Adana", "Adıyaman", "Afyonkarahisar", "Ağrı", "Aksaray", "Amasya", "Ankara",
+    "Antalya", "Ardahan", "Artvin", "Aydın", "Balıkesir", "Bartın", "Batman", "Bayburt",
+    "Bilecik", "Bingöl", "Bitlis", "Bolu", "Burdur", "Bursa", "Çanakkale", "Çankırı",
+    "Çorum", "Denizli", "Diyarbakır", "Düzce", "Edirne", "Elazığ", "Erzincan",
+    "Erzurum", "Eskişehir", "Gaziantep", "Giresun", "Gümüşhane", "Hakkari", "Hatay",
+    "Iğdır", "Isparta", "İstanbul", "İzmir", "Kahramanmaraş", "Karabük", "Kars",
+    "Kastamonu", "Kayseri", "Kırıkkale", "Kırklareli", "Kırşehir", "Konya", "Kütahya",
+    "Malatya", "Manisa", "Mardin", "Mersin", "Muğla", "Muş", "Nevşehir", "Niğde",
+    "Ordu", "Osmaniye", "Rize", "Sakarya", "Samsun", "Siirt", "Sinop", "Sivas",
+    "Tekirdağ", "Tokat", "Trabzon", "Tunceli", "Şanlıurfa", "Uşak", "Van",
+    "Yalova", "Yozgat", "Zonguldak"
+  ],
+  UAE: [
+    "Abu Dhabi", "Ajman", "Dubai", "Fujairah", "Ras Al Khaimah", "Sharjah", "Umm Al-Quwain"
+  ],
+  SaudiArabia: [
+    "Abha", "Al Ahsa", "Al Bahah", "Al Jawf", "Al Madinah", "Al Qassim", "Al Riyadh",
+    "Al Sharqiyah", "Asir", "Baha", "Hail", "Jazan", "Jeddah", "Makkah", "Najran",
+    "Northern Borders", "Qassim", "Riyadh", "Tabuk", "Tayma", "Yanbu"
+  ],
+  Egypt: [
+    "Alexandria", "Aswan", "Asyut", "Beheira", "Beni Suef", "Cairo", "Dakahlia",
+    "Damietta", "Faiyum", "Gharbia", "Giza", "Ismailia", "Kafr El Sheikh", "Luxor",
+    "Matrouh", "Minya", "Monufia", "New Valley", "North Sinai", "Port Said",
+    "Qalyubia", "Qena", "Red Sea", "Sharqia", "Sohag", "South Sinai", "Suez"
+  ],             
 
 };
 
