@@ -431,11 +431,29 @@ const AddOrder: React.FC<AddDataProps> = ({
               >
                 <option disabled selected value="">
                   -- Destination --
-                </option>
-                <option value="Nigeria">Nigeria</option>
-                <option value="USA">United States</option>
+                  </option>
+                <option value="Australia">Australia</option>
+                <option value="Brazil">Brazil</option>
                 <option value="Canada">Canada</option>
+                <option value="China">China</option>
+                <option value="Egypt">Egypt</option>
+                <option value="France">France</option>
+                <option value="Germany">Germany</option>
+                <option value="India">India</option>
+                <option value="Japan">Japan</option>
+                <option value="Mexico">Mexico</option>
+                <option value="Nigeria">Nigeria</option>
+                <option value="SaudiArabia">Saudi Arabia</option>
+                <option value="SouthAfrica">South Africa</option>
                 <option value="UK">United Kingdom</option>
+                <option value="USA">United States</option>
+                <option value="Italy">Italy</option>
+                <option value="Spain">Spain</option>
+                <option value="Russia">Russia</option>
+                <option value="SouthKorea">South Korea</option>
+                <option value="Turkey">Turkey</option>
+                <option value="USA">United States</option>
+                <option value="UAE">United Arab Emirate</option>
               </select>
             </label>
             <StateDropDown
