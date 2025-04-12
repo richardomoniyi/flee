@@ -29,6 +29,7 @@ import Customers from './pages/Customer/Customers';
 import Users from './pages/User/Users';
 import Chatbot from './pages/Chatbot';
 import { getUserProfile } from './commons/Utility';
+import Reporter from './pages/Report/Reporter';
 //import { GlobalProvider } from "./components/GlobalContext";
 
 
@@ -118,6 +119,11 @@ function App() {
           path: '/dashboard/payments',
           element: <Payments />,
         },
+        {
+          path: '/dashboard/reports',
+          element: <Reporter />,
+        },
+       
         {
           path: '/dashboard/products/:id',
           element: <Product />,

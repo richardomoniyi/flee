@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { getUserProfile } from "../commons/Utility"; // Update the path to the correct location
+import {getUserProfile} from "../commons/Utility"; // Update the path to the correct location
 
 // Define types for the option and the props
 export interface Option {
   id: string; // or number, depending on your API response
   name: string; // or any other property that represents the option
-  phone: string;
-  email: string;
-  address: string;
-  businessName: string;
+  phone:string;
+  email:string;
+  address:string;
+  businessName:string;
 }
 
 interface SelectWithSearchProps {
@@ -16,8 +16,6 @@ interface SelectWithSearchProps {
   apiUrl: string;
   placeholder: string;
   onSelect: (option: Option) => void;
-  id?: string; // Optional id parameter
-  className?: string; // Optional className parameter
 }
 
 const AutoTextBox: React.FC<SelectWithSearchProps> = ({
@@ -25,8 +23,6 @@ const AutoTextBox: React.FC<SelectWithSearchProps> = ({
   apiUrl,
   placeholder,
   onSelect,
-  id, // Optional id prop
-  className, 
 }) => {
   const [inputValue, setInputValue] = useState<string>(value);
   const [options, setOptions] = useState<Option[]>([]);
@@ -42,15 +38,18 @@ const AutoTextBox: React.FC<SelectWithSearchProps> = ({
       setLoading(true);
       try {
         if (inputValue.length < 3) return;
-        const response = await fetch(`${apiUrl}/${inputValue}`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${getUserProfile()?.token}`, // Send Authorization header
-            "Content-Type": "application/json", // Ensure JSON format
-          },
-        });
+        //const response = await fetch(`${apiUrl}/${inputValue}`);
+        //
+        const response = await fetch(`${apiUrl}/${inputValue}`,
+          {
+            method: "GET",
+            headers: {
+              "Authorization": `Bearer ${getUserProfile()?.token}`, // Send Authorization header
+              "Content-Type": "application/json", // Ensure JSON format
+            },
+          });
         const data = await response.json();
-        console.log("data:", data);
+        console.log("data:",data);
         setOptions(data); // Assuming the API response is an array of options
       } catch (error) {
         console.error("Error fetching options:", error);
@@ -74,11 +73,10 @@ const AutoTextBox: React.FC<SelectWithSearchProps> = ({
     setOptions([]); // Close the dropdown after selection
     setSelected(true);
   };
-//className="relative w-full"
+
   return (
-    <div className={`relative w-full ${className || ""}`}>
+    <div className="relative w-full">
       <input
-        name={id} // Add the optional id to the input element
         type="text"
         value={inputValue}
         onChange={handleChange} // Keeps user input
@@ -115,6 +113,7 @@ const AutoTextBox: React.FC<SelectWithSearchProps> = ({
         <ul className="absolute w-full bg-white border border-gray-300 rounded-md mt-1 max-h-60 overflow-auto z-10">
           {options.map((option) => (
             <li
+              id=""
               key={option.id}
               className="px-4 py-2 hover:bg-indigo-100 cursor-pointer"
               onClick={() => handleSelect(option)}

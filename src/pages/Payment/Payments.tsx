@@ -24,7 +24,7 @@ const Dispatchs = () => {
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 20 },
     { 
-      field: "orderdate",
+      field: "orderDate",
       type: "string",
       headerName: "Order Date",
       minWidth: 60,
@@ -39,7 +39,7 @@ const Dispatchs = () => {
       flex: 1,
     },
     {
-      field: "paymentdate",
+      field: "paymentDate",
       type: "string",
       headerName: "Payment Date",
       minWidth: 100,

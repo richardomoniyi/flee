@@ -2,7 +2,6 @@ import React from "react";
 import { useQueryClient } from "@tanstack/react-query"; // Import useQueryClient
 
 import { GridColDef } from "@mui/x-data-grid";
-import DataTable from "../../components/DataTable";
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { fetchOrders } from "./OrderData";
@@ -10,6 +9,7 @@ import AddOrder from "./AddOrder";
 import { formatDate,formatToNaira } from "../../commons/Utility";
 import AddDispatch from "../Dispatch/AddDispatch";
 import MakePayment from "../Payment/MakePayment";
+import DataTable2 from "../../components/DataTable2";
 
 
 const Orders = () => {
@@ -205,7 +205,7 @@ console.log("CanPay",canPay);
         </div>
 
         {isLoading ? (
-          <DataTable
+          <DataTable2
             slug="orders"
             columns={columns}
             rows={[]}
@@ -215,7 +215,7 @@ console.log("CanPay",canPay);
             onSelectionChange={handleSelectionChange}
           />
         ) : isSuccess ? (
-          <DataTable
+          <DataTable2
             slug="orders"
             columns={columns}
             rows={data}
@@ -226,7 +226,7 @@ console.log("CanPay",canPay);
           />
         ) : (
           <>
-            <DataTable
+            <DataTable2
               slug="orders"
               columns={columns}
               rows={[]}
