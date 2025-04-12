@@ -13,6 +13,7 @@ import { Option } from "../../components/AutoTextBox";
 import CityDropDown from "./CityDropDown";
 import StateDropDown from "./StateDropDown";
 import { getUserProfile } from "../../commons/Utility";
+import XDialog from "../../components/XDialog";
 //import {formatCurrency, removeFormatting} from "../../commons/Utility";
 
 interface AddDataProps {
@@ -59,6 +60,7 @@ const AddOrder: React.FC<AddDataProps> = ({
   const [dropoffCountry, setDropoffCountry] = useState("");
   const [paid] = useState("0");
   const [postedBy, setPostedBy] = useState("-1");
+  const [isOpenDialog, setIsOpenDialog] = React.useState(false);
 
   const getOrderData = async () => {
     try {
@@ -108,6 +110,17 @@ const AddOrder: React.FC<AddDataProps> = ({
     //setFormData((prev) => ({ ...prev, city: selectedCity }));
     setPickupCity(selectedCity);
   };
+  const senderNameChange = async (newCustomerId: string) => {
+    setIsOpenDialog(false);
+    console.log("senderNameChange:", newCustomerId);
+    if ( newCustomerId === "0" || newCustomerId === "") {
+      // If the selected option is "0" or empty, show the dialog
+      setIsOpenDialog(true);
+    }
+  };
+  const  handleDialogConfirm = () => {
+    //delDriver(driver);
+  };
   const handleSenderNameSelect = (selectedOption: Option) => {
     //console.log("Selected option:", selectedOption.name);
     setPickupName(selectedOption.name);
@@ -115,6 +128,9 @@ const AddOrder: React.FC<AddDataProps> = ({
     setPickupStreet(selectedOption.address);
     setPickupPhone(selectedOption.phone);
     setPostedBy(getUserProfile()?.user || "-1");
+    //console.log("Selected option:", customerId);
+    senderNameChange(selectedOption.id)
+    
     // You can handle the selected option further here, such as storing it in state, etc.
   };
   function handleDropOffStateChange(state: string): void {
@@ -171,6 +187,10 @@ const AddOrder: React.FC<AddDataProps> = ({
   React.useEffect(() => {
     setShowModal(isOpen);
   }, [isOpen]);
+  
+  React.useEffect(() => {
+    setIsOpenDialog(isOpenDialog);
+  }, [isOpenDialog]);
 
   React.useEffect(() => {
     if (
@@ -261,7 +281,7 @@ const AddOrder: React.FC<AddDataProps> = ({
   console.log("DropOffState:",dropoffState);
   console.log("DropOffCountry:",dropoffCountry);
   */
-  //console.log("Carrier", carrierId);
+  console.log("DialogState", isOpenDialog);
   //<SearchDropdown apiUrl={selectUrl} label="Search for a user" onSelect={handleSelection} />
   if (slug === "order") {
     //console.log("form status", formOrderIsEmpty);
@@ -300,6 +320,17 @@ const AddOrder: React.FC<AddDataProps> = ({
               value={orderId}
               onChange={(element) => setOrderId(element.target.value)}
             />
+            <div>
+              <div className="label">
+                Order Date:
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePicker
+                    value={orderDate}
+                    onChange={(orderdate) => setOrderDate(orderdate)}
+                  />
+                </LocalizationProvider>
+              </div>
+            </div>
             <input
               type="text"
               placeholder="Order Description"
@@ -317,6 +348,14 @@ const AddOrder: React.FC<AddDataProps> = ({
               }
               onSelect={handleSenderNameSelect} // Pass external event handler
             />
+            {isOpenDialog && (
+              <XDialog
+                isOpen={isOpenDialog}
+                title="Confirmation"
+                message="You have no customer with this name. Do you want to continue? If you continue order will be posted to a pool account"
+                onConfirm={handleDialogConfirm}
+              />
+            )}
             <input
               type="text"
               placeholder="Sender Phone"
@@ -431,7 +470,7 @@ const AddOrder: React.FC<AddDataProps> = ({
               >
                 <option disabled selected value="">
                   -- Destination --
-                  </option>
+                </option>
                 <option value="Australia">Australia</option>
                 <option value="Brazil">Brazil</option>
                 <option value="Canada">Canada</option>
@@ -489,17 +528,7 @@ const AddOrder: React.FC<AddDataProps> = ({
               value={instruction}
               onChange={(element) => setInstruction(element.target.value)}
             />
-            <div>
-              <div className="label">
-                Order Date:
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker
-                    value={orderDate}
-                    onChange={(orderdate) => setOrderDate(orderdate)}
-                  />
-                </LocalizationProvider>
-              </div>
-            </div>
+
             <label className="form-control w-full">
               <select
                 value={carrierId}

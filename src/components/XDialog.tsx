@@ -4,11 +4,12 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/
 interface XDialogProps {
   title: string;
   message: string;
+  isOpen: boolean;
   onConfirm: () => void; // Event handler for Confirm button
 }
 
-const XDialog: React.FC<XDialogProps> = ({ title, message, onConfirm }) => {
-  const [open, setOpen] = useState<boolean>(true);
+const XDialog: React.FC<XDialogProps> = ({ title, message,isOpen, onConfirm }) => {
+  const [open, setOpen] = useState<boolean>(isOpen);
 
   return (
     <div>
