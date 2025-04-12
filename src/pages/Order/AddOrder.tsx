@@ -113,11 +113,11 @@ const AddOrder: React.FC<AddDataProps> = ({
   const senderNameChange = async (newCustomerId: string) => {
     setIsOpenDialog(false);
     console.log("senderNameChange:", newCustomerId);
-    if ( newCustomerId === "0" || newCustomerId === "") {
+    if ( customerId === "0" || customerId === "") {
       // If the selected option is "0" or empty, show the dialog
-       window.alert(
-        "You have no customer with this name. Do you want to continue? If you continue order will be posted to a pool account")
       setIsOpenDialog(true);
+       //window.alert("You have no customer with this name. Do you want to continue? If you continue order will be posted to a pool account")
+     
     }
   };
   const  handleDialogConfirm = () => {
