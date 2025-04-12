@@ -161,6 +161,7 @@ const Drivers = () => {
         )}
         {isOpenDialog && (
           <XDialog
+            isOpen={isOpenDialog}
             title="Delete Confirmation"
             message="Are you sure you want to delete this item?"
             onConfirm={handleDialogConfirm}
