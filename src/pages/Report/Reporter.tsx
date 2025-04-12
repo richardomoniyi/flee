@@ -86,13 +86,13 @@ const Reporter = () => {
     {
       field: "debit",
       type: "number",
-      headerName: "Debit",
+      headerName: "Debit (Orders)",
       minWidth: 60,
       flex: 1,
       renderCell: (params) => formatToNaira(params.value),
     },
     {
-      field: "credit",
+      field: "credit (Payments)",
       headerName: "Credit",
       type: "number",
       minWidth: 60,
