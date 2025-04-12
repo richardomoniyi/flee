@@ -72,7 +72,7 @@ const Reporter = () => {
       field: "transdate",
       type: "string",
       headerName: "Date",
-      minWidth: 60,
+      minWidth: 50,
       flex: 1,
       renderCell: (params) => formatDate(params.value),
     },
@@ -80,7 +80,7 @@ const Reporter = () => {
       field: "description",
       type: "string",
       headerName: "Description",
-      minWidth: 100,
+      minWidth: 70,
       flex: 1,
     },
     {
@@ -148,7 +148,7 @@ const Reporter = () => {
             apiUrl={searchCustomerUrl} // Replace with your actual API URL
             placeholder="Customer ID"
             onSelect={handleSenderNameSelect} // Pass external event handler
-            className="w-1/4" // Reduced width
+            className="w-1/5" // Reduced width
           />
           <input
             type="date"
@@ -161,7 +161,7 @@ const Reporter = () => {
             type="date"
             placeholder="End Date"
             value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
+            onChange={(e) => setEndDate(e.target.value)} 
             className="border p-2 rounded w-1/4"
           />
           <button
