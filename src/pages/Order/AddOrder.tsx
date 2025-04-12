@@ -112,9 +112,13 @@ const AddOrder: React.FC<AddDataProps> = ({
   };
   const senderNameChange = async (newCustomerId: string) => {
     setIsOpenDialog(false);
+    console.log("senderNameChange typeof:", typeof newCustomerId);
     console.log("senderNameChange:", newCustomerId);
-    if ( customerId === "0" || customerId === "") {
+    const cId =  String(newCustomerId);
+    
+    if ( cId.trim() === '0' || cId.trim()  === "") {
       // If the selected option is "0" or empty, show the dialog
+      console.log("senderNameChange: if()");
       setIsOpenDialog(true);
        //window.alert("You have no customer with this name. Do you want to continue? If you continue order will be posted to a pool account")
      
@@ -130,7 +134,7 @@ const AddOrder: React.FC<AddDataProps> = ({
     setPickupStreet(selectedOption.address);
     setPickupPhone(selectedOption.phone);
     setPostedBy(getUserProfile()?.user || "-1");
-    //console.log("Selected option:", customerId);
+    console.log("Selected option:", selectedOption.id);
     senderNameChange(selectedOption.id)
     
     // You can handle the selected option further here, such as storing it in state, etc.
