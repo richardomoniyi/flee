@@ -4,16 +4,19 @@ import { useQueryClient } from "@tanstack/react-query"; // Import useQueryClient
 import { GridColDef } from "@mui/x-data-grid";
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { fetchOrders } from "./OrderData";
+import { delOrder, fetchOrders } from "./OrderData";
 import AddOrder from "./AddOrder";
-import { formatDate,formatToNaira } from "../../commons/Utility";
+import {
+  formatDate,
+  formatToNaira,
+  getUserProfile,
+} from "../../commons/Utility";
 import AddDispatch from "../Dispatch/AddDispatch";
 import MakePayment from "../Payment/MakePayment";
 import DataTable2 from "../../components/DataTable2";
 
-
 const Orders = () => {
-  const queryClient = useQueryClient(); 
+  const queryClient = useQueryClient();
   const [isOpen, setIsOpen] = React.useState(false);
   const [editFlag, setEditFlag] = React.useState(false);
   const [isDispatch, setIsDispatch] = React.useState(false);
@@ -21,14 +24,14 @@ const Orders = () => {
   const [canPay, setCanPay] = React.useState(false);
   const [selectedRows, setSelectedRows] = React.useState<any[]>([]);
   const { isLoading, isError, isSuccess, data } = useQuery({
-    queryKey: ["allorders",[isOpen]],
+    queryKey: ["allorders", [isOpen]],
     queryFn: fetchOrders,
   });
   console.log("Edit Flag", editFlag);
 
   const handleButtonClick = (row: any, action: string) => {
     setIsDispatch(false);
-    //console.log("Action:", action);
+    console.log("Action:", action);
     setOrder("" + row.id);
     if (action === "E") {
       setIsOpen(true);
@@ -36,11 +39,38 @@ const Orders = () => {
     } else if (action === "A") {
       setIsDispatch(true);
       setEditFlag(true);
+    } else if (action === "D") {
+      const getRole = (): string => {
+        const userProfile = getUserProfile();
+        return userProfile ? userProfile.role : "";
+      };
+      if (getRole() !== "3") {
+        //Admin
+        // If the user is not an admin, show an error message
+        toast.error("You are not authorized to delete this order!",  { id: "deleteOrder" });
+      } else {
+        if (window.confirm("Are you sure you want to delete this order?")) {
+          toast.loading("Deleting order...", { id: "deleteOrder" });
+          
+          /*fetch(`/api/orders/${row.id}`, { method: "DELETE" })
+        .then(async (res) => {
+        if (!res.ok) throw new Error("Failed to delete order");
+        toast.success("Order deleted!", { id: "deleteOrder" });
+        queryClient.invalidateQueries({ queryKey: ["allorders"] });
+        })
+        .catch(() => {
+        toast.error("Error deleting order!", { id: "deleteOrder" });
+        });
+      }*/
+          delOrder(row.id);
+          toast.success("Order deleted!", { id: "deleteOrder" });
+        }
+      }
     }
   };
- 
+
   const handleSelectionChange = (selectionModel: any) => {
-    console.log('Selected Rows:', selectionModel);
+    console.log("Selected Rows:", selectionModel);
     setSelectedRows(selectionModel);
   };
   const columns: GridColDef[] = [
@@ -95,7 +125,7 @@ const Orders = () => {
       type: "string",
       minWidth: 10,
       flex: 1,
-      renderCell: (params) => params.value === '1' ? "Paid":"Not Paid",
+      renderCell: (params) => (params.value === "1" ? "Paid" : "Not Paid"),
     },
     {
       field: "dropoffDate",
@@ -126,35 +156,33 @@ const Orders = () => {
   const handleAdd = () => {
     setIsOpen(true);
     setEditFlag(false);
-     // Simulate adding a new order (e.g., after closing the modal)
-     /*setTimeout(() => {
+    // Simulate adding a new order (e.g., after closing the modal)
+    /*setTimeout(() => {
       // Invalidate the query to refetch data
       queryClient.invalidateQueries({ queryKey: ["alldrivers"] });
     }, 1000); // Adjust timing based on your actual add order logic
     */
   };
   const handlePayment = () => {
-   
-    try{
-    if (selectedRows.length !== 1)
-    {
-      toast.error("Select ONE Order to Pay!", {
+    try {
+      if (selectedRows.length !== 1) {
+        toast.error("Select ONE Order to Pay!", {
+          id: "orderPay",
+        });
+        return;
+      }
+      setOrder(selectedRows[0]);
+      setEditFlag(true);
+      setCanPay(true);
+    } catch (Exception) {
+      setCanPay(false);
+      toast.error("Select an Order to Pay!", {
         id: "orderPay",
       });
-      return;
     }
-    setOrder(selectedRows[0])
-    setEditFlag(true);
-    setCanPay(true);
-  }catch(Exception){
-    setCanPay(false);
-    toast.error("Select an Order to Pay!", {
-      id: "orderPay",
-    });
-  }
   };
 
-console.log("CanPay",canPay);
+  console.log("CanPay", canPay);
   return (
     <div className="w-full p-0 m-0">
       <div className="w-full flex flex-col items-stretch gap-3">
@@ -263,7 +291,7 @@ console.log("CanPay",canPay);
             editFlag={editFlag}
           />
         )}
-         {canPay && (
+        {canPay && (
           <MakePayment
             id={order}
             slug={"payment"}
