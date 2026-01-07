@@ -14,6 +14,7 @@ import {
 import AddDispatch from "../Dispatch/AddDispatch";
 import MakePayment from "../Payment/MakePayment";
 import DataTable2 from "../../components/DataTable2";
+import InvoiceModal from "../../components/InvoiceModal";
 
 const Orders = () => {
   const queryClient = useQueryClient();
@@ -27,8 +28,29 @@ const Orders = () => {
     queryKey: ["allorders", [isOpen]],
     queryFn: fetchOrders,
   });
+  const [invoiceOpen, setInvoiceOpen] = React.useState(false);
+const [invoiceData, setInvoiceData] = React.useState<any | null>(null);
+
   console.log("Edit Flag", editFlag);
 
+  const handleInvoice = () => {
+  /*if (!selectedRows || selectedRows.length !== 1) {
+    toast.error("Select ONE order to generate invoice", { id: "invoice" });
+    return;
+  }*/
+  //const selId = selectedRows[0];
+  //const row = data?.find((r: any) => String(r.id) === String(selId));
+
+  const rows = selectedRows
+    .map((selId: any) => data?.find((r: any) => String(r.id) === String(selId)))
+    .filter(Boolean);
+ if (!rows || rows.length === 0) {
+    toast.error("Selected order(s) not found", { id: "invoice" });
+    return;
+  }
+  setInvoiceData(rows);
+  setInvoiceOpen(true);
+};
   const handleButtonClick = (row: any, action: string) => {
     setIsDispatch(false);
     console.log("Action:", action);
@@ -229,6 +251,20 @@ const Orders = () => {
                 Make Payment +
               </button>
             )}
+            <button
+              onClick={handleInvoice}
+              style={{
+                padding: "8px 16px",
+                backgroundColor: isLoading ? "#ccc" : "#ff5500ff",
+                color: "white",
+                border: "none",
+                borderRadius: "4px",
+                cursor: isLoading ? "not-allowed" : "pointer",
+              }}
+              disabled={isLoading}
+            >
+              Invoice
+            </button>
           </div>
         </div>
 
@@ -305,6 +341,16 @@ const Orders = () => {
             editFlag={editFlag}
           />
         )}
+        {invoiceOpen && (
+  <InvoiceModal
+    isOpen={invoiceOpen}
+    setIsOpen={(canInv: boolean | ((prevState: boolean) => boolean)) => {
+      setInvoiceOpen(canInv);
+      if (!canInv) setInvoiceData(null);
+    }}
+    data={invoiceData}
+  />
+)}
       </div>
     </div>
   );
