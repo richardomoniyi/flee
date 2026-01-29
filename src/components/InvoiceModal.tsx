@@ -51,7 +51,7 @@ const InvoiceModal: React.FC<InvoiceModalProps> = ({
     });
 
   const subtotal = items.reduce((s, it) => s + it.qty * it.unitPrice, 0);
-  const vatRate = 0.075;
+  const vatRate = 0.00;//;
   const vat = +(subtotal * vatRate);
   const total = subtotal + vat;
 
